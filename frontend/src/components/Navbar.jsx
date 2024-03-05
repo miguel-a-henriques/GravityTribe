@@ -2,7 +2,7 @@ import React from 'react'
 
 function Navbar() {
   return (
-    <div>
+    <div className='navbar'>
         <img src="src/images/GT_LOGO.png" style={{width: "80px"}}/>
         <button>Login</button>
     </div>
