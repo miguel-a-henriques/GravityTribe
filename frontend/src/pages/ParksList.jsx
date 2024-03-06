@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import ParkCard from "../components/ParkCard";
-const API_URL = "http://localhost:5005";
 import { useState } from "react";
 import axios from "axios";
+
+const API_URL = "http://localhost:5005";
 
 function ParksList() {
   const [parks, setParks] = useState([]);
@@ -21,7 +22,7 @@ function ParksList() {
     <div>
       <div>
         {parks.map((entry) => (
-          <ParkCard key={entry._id} entry={entry}/>
+          <ParkCard key={entry._id} entry={entry} id={entry._id} />
         ))}
       </div>
     </div>

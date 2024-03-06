@@ -1,13 +1,14 @@
+import { Link } from "react-router-dom";
 function ParkCard(props) {
-  const { entry } = props;
+  const { entry, id } = props;
 
   return (
-    <div>
-      ParkCard
-      <section >
+    <Link to={`/parkdetails/${id}`}>
+      <section>
+        <img src={entry.photo} />
         <h4>{entry.name}</h4>
       </section>
-    </div>
+    </Link>
   );
 }
 
