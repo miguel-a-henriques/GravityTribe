@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Buttons() {
+  const navigate = useNavigate();
   return (
-    <div>Buttons</div>
-  )
+    <div>
+      <a onClick={()=>{navigate("/parkslist")}}>Parks</a>
+      <a onClick={()=>{navigate("/workoutslist")}}>Workouts</a>
+      <a onClick={()=>{navigate("/events")}}>Events</a>
+    </div>
+  );
 }
 
-export default Buttons
+export default Buttons;

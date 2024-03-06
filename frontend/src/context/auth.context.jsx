@@ -4,7 +4,7 @@ import axios from "axios";
 // Initializing context
 const AuthContext = React.createContext();
 
-const API_URL = "http://localhost:5005";
+const API_URL = "http://localhost:5005/";
 
 function AuthProviderWrapper(props) {
   const [user, setUser] = useState("");
@@ -38,22 +38,22 @@ function AuthProviderWrapper(props) {
       setUser(null);
       setIsLoggedIn(false);
     }
-
-    const removeToken = () => {
-      localStorage.removeItem("authToken");
-    };
-
-    const logOut = () => {
-      removeToken();
-      authenticateUser();
-    };
-
-    return (
-      <AuthContext.Provider value={{ isLoggedIn, user, saveToken, authenticateUser, logOut }}>
-        {props.children}
-      </AuthContext.Provider>
-    );
   };
+
+  const removeToken = () => {
+    localStorage.removeItem("authToken");
+  };
+
+  const logOut = () => {
+    removeToken();
+    authenticateUser();
+  };
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, user, saveToken, authenticateUser, logOut }}>
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
 
 export {AuthProviderWrapper, AuthContext};

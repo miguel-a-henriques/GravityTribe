@@ -32,8 +32,9 @@ function Signup() {
         navigate("/login");
       })
       .catch((error) => {
-        const errorDescription = error.data.message;
-        setError(errorDescription);
+        /* const errorDescription = error.data.message; */
+       /*  setError(errorDescription); */
+       console.log(error)
       });
   };
 

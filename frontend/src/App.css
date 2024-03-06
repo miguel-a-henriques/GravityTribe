@@ -1,8 +1,8 @@
-#root {
+/* #root {
   max-width: 0;
   margin: 0 ;
   padding: 0;
-/*   text-align: center; */
+  text-align: center;
 }
 
 .logo {
@@ -39,7 +39,7 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
 
 /* Working from here downwards ----------------------------------------------------- */
 
