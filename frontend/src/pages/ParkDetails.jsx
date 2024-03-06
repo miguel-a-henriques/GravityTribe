@@ -5,21 +5,21 @@ import { useParams } from "react-router-dom";
 const API_URL = "http://localhost:5005";
 
 function ParkDetails() {
-  const { id } = useParams;
-  const [entryData, setEntryData] = useState("");
+  const { id } = useParams();
+  const [park, setPark] = useState("");
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/parks/${id}`)
       .then((response) => {
-        setEntryData(response.data);
+        setPark(response.data);
       })
       .catch((error) => console.log(error));
-  });
+  }, [id]);
   return (
     <div>
-      <h2>{entryData.name}</h2>
-      <img src={entryData.photo}/>
+      <h2>{park.name}</h2>
+      <img src={park.photo}/>
     </div>);
 }
 
