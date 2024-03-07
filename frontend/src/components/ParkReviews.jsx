@@ -1,15 +1,32 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth.context";
+import { useEffect } from "react";
 
 const API_URL = "http://localhost:5005";
 
-function ParkReviews () {
+function ParkReviews (props) {
 
     const [review, setReview] = useState("");
     const {id} = useParams();
-    const navigate = useNavigate();
+    const {user, isLoggedIn} = useContext(AuthContext);
+    const [ourUser, setOurUser] = useState({});
+    const {updatePark} = props;
+
+    useEffect(() => {
+        if (isLoggedIn) {
+          axios
+            .get(`${API_URL}/api/user/${user._id}`)
+            .then((response) => {
+              setOurUser(response.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
+      }, [isLoggedIn]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -22,16 +39,14 @@ function ParkReviews () {
             // Add the new review to the existing array
             const updatedData = {
                 ...existingData,
-                reviews: [
-                    ...(existingData.review || []),
-                    review
-                ]
+                reviews: [...(existingData.reviews || []), review]
             };
 
-            await axios.put(`${API_URL}/api/parks/${id}`, updatedData);
+            await axios.put(`${API_URL}/api/parks/${id}`, {author: ourUser.name, text: review, photo: ourUser.photo, revId: Math.random().toString(36).substr(2, 9)});
 
-            // After successfully updating, navigate to the planet page
-            navigate(`/parkdetails/${id}`);
+            const updatedParkResponse = await axios.get(`${API_URL}/api/parks/${id}`);
+            updatePark(updatedParkResponse.data);
+        
         } catch (error) {
             console.error("Error adding review:", error);
         }
@@ -40,11 +55,14 @@ function ParkReviews () {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            {isLoggedIn ? (
+                <form onSubmit={handleSubmit}>
                 <label>Add Review</label>
                 <input className="review" type="text" value={review} onChange={(e) => setReview(e.target.value)} />
                 <button type="submit">Push your review</button>
             </form>
+            ) : <div />}
+            
         </div>
     )
 }
