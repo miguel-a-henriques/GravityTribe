@@ -14,12 +14,14 @@ import EventDetails from "./pages/EventDetails";
 import ErrorPage from "./pages/ErrorPage";
 import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
+import EditProfile from "./pages/EditProfile";
 import About from "./pages/About";
 
 // Importing the components
 import Navbar from "./components/Navbar";
 import Friends from "./components/Friends";
 import Buttons from "./components/Buttons";
+
 
 function App() {
   const location = useLocation();
@@ -50,6 +52,7 @@ function App() {
         <Route path="/eventdetails/:id" element={<EventDetails />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/profile/edit/:id" element={<EditProfile />} />
         <Route path='/about' element={<About />} />
 
         {/* FallBack page 404 */}

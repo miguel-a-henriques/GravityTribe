@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ParkReviews from "../components/ParkReviews";
 
 const API_URL = "http://localhost:5005";
 
@@ -20,6 +21,7 @@ function ParkDetails() {
     <div>
       <h2>{park.name}</h2>
       <img src={park.photo}/>
+      <ParkReviews></ParkReviews>
     </div>);
 }
 

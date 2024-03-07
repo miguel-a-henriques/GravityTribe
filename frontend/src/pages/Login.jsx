@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5005/";
+const API_URL = "http://localhost:5005";
 
 function Login() {
 
@@ -24,11 +24,12 @@ function Login() {
         .post(`${API_URL}/auth/login`, reqBody)
         .then((response) => {
             saveToken(response.data.authToken);
+            /* console.log(saveToken) */
             authenticateUser();
             navigate("/");
         })
         .catch((error) => {
-/*             const errorDescription = error.data.message;
+            /* const errorDescription = error.data.message;
             setError(errorDescription) */
             console.log(error)
         })
