@@ -24,6 +24,15 @@ function WorkoutDetails() {
       <img></img>
       <h1>{workout.workoutType}</h1>
       <h3>{workout.expLevel}</h3>
+      
+      {workout && workout.exercises.map((single) => {
+        return (
+          <article>
+            <h3>{single.description}</h3>
+            <p>Do {single.sets} sets of {single.repetitions} {single.type}.</p>
+          </article>
+        )
+      })}
     </div>
   )
 }

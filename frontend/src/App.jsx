@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import UserProfile from "./pages/UserProfile";
 import EditProfile from "./pages/EditProfile";
 import About from "./pages/About";
+import CreateWorkoutPage from "./pages/CreateWorkoutPage";
 
 // Importing the components
 import Navbar from "./components/Navbar";
@@ -48,6 +49,7 @@ function App() {
         <Route path="/parkdetails/:id" element={<ParkDetails />} />
         <Route path="/workouts" element={<WorkoutsPage />} />
         <Route path="/workouts/:id" element={<WorkoutDetails />} />
+        <Route path='/workouts/create' element={<CreateWorkoutPage/>}/>
         <Route path="/events" element={<Events />} />
         <Route path="/eventdetails/:id" element={<EventDetails />} />
         <Route path="/profile/:id" element={<Profile />} />

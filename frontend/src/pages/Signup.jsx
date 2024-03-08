@@ -33,7 +33,7 @@ function Signup() {
       })
       .catch((error) => {
         /* const errorDescription = error.data.message; */
-       /*  setError(errorDescription); */
+       setError("Error while signing up")
        console.log(error)
       });
   };
