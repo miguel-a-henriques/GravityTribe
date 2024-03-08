@@ -6,7 +6,7 @@ function Buttons() {
   return (
     <div>
       <a onClick={()=>{navigate("/parkslist")}}>Parks</a>
-      <a onClick={()=>{navigate("/workoutslist")}}>Workouts</a>
+      <a onClick={()=>{navigate("/workouts")}}>Workouts</a>
       <a onClick={()=>{navigate("/events")}}>Events</a>
     </div>
   );

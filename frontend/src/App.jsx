@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import HomePage from "./pages/HomePage";
 import ParksList from "./pages/ParksList";
 import ParkDetails from "./pages/ParkDetails";
-import WorkoutsList from "./pages/WorkoutsList";
+import WorkoutsPage from "./pages/WorkoutsPage";
 import WorkoutDetails from "./pages/WorkoutDetails";
 import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
@@ -46,8 +46,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/parkslist" element={<ParksList />} />
         <Route path="/parkdetails/:id" element={<ParkDetails />} />
-        <Route path="/workoutslist" element={<WorkoutsList />} />
-        <Route path="/workoutdetails/:id" element={<WorkoutDetails />} />
+        <Route path="/workouts" element={<WorkoutsPage />} />
+        <Route path="/workouts/:id" element={<WorkoutDetails />} />
         <Route path="/events" element={<Events />} />
         <Route path="/eventdetails/:id" element={<EventDetails />} />
         <Route path="/profile/:id" element={<Profile />} />
