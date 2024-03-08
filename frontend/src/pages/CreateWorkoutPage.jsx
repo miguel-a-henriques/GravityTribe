@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 const API_URL = "http://localhost:5005";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/auth.context";
 
 function CreateWorkoutPage() {
   const [name, setName] = useState("");
@@ -15,6 +16,22 @@ function CreateWorkoutPage() {
   const [type, setType] = useState("");
   const [repetitions, setRepetitions] = useState();
   const [description, setDescription] = useState();
+
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const [ourUser, setOurUser] = useState({})
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`)
+        .then((response) => {
+          setOurUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoggedIn]);
 
   const handleExNumberChange = (e) => {
     const value = e.target.value;
@@ -57,8 +74,8 @@ function CreateWorkoutPage() {
       workoutType,
       expLevel,
       exercises: exercisesArray,
+      createdBy: ourUser.name
     };
-    console.log(reqBody);
 
     axios
       .post(`${API_URL}/api/workouts`, reqBody)
@@ -71,8 +88,12 @@ function CreateWorkoutPage() {
       });
   };
 
+
   return (
+
     <div>
+        {isLoggedIn ? (
+            <div>
       <h1>Create Your Workout</h1>
       <form onSubmit={handleWorkoutCreate}>
         <div>
@@ -182,6 +203,10 @@ function CreateWorkoutPage() {
 
         {error && <p>{error}</p>}
       </form>
+      </div>
+      ) : (
+        <h2>Please Login to create a workout</h2>
+      )} 
     </div>
   );
 }
