@@ -5,14 +5,16 @@ import axios from "axios";
 
 function CreateWorkoutPage() {
   const [name, setName] = useState("");
-  const [type, setType] = useState("push");
+  const [workoutType, setWorkoutType] = useState("push");
   const [expLevel, setExpLevel] = useState("beginner");
   const [exNumber, setExNumber] = useState("");
   const [exercises, setExercises] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-
+  const [sets, setSets] = useState();
+  const [type, setType] = useState("");
+  const [repetitions, setRepetitions] = useState();
+  const [description, setDescription] = useState();
 
   const handleExNumberChange = (e) => {
     const value = e.target.value;
@@ -23,27 +25,43 @@ function CreateWorkoutPage() {
   const generateExerciseInputs = (count) => {
     const exerciseInputs = [];
     for (let i = 0; i < parseInt(count); i++) {
-      exerciseInputs.push({ name: "" });
+      exerciseInputs.push({ description: "" });
     }
     setExercises(exerciseInputs);
   };
 
   const handleExNumChange = (e, index) => {
     const { value } = e.target;
+
     setExercises((prevExercises) => {
       const updatedExercises = [...prevExercises];
-      updatedExercises[index] = { name: value };
+      updatedExercises[index] = { description: value };
       return updatedExercises;
     });
+
+    setDescription(value);
   };
 
   const handleWorkoutCreate = (e) => {
     e.preventDefault();
 
-    const reqBody = { name, type, expLevel, exercises };
+    const exercisesArray = exercises.map((exercise) => ({
+      description: exercise.description,
+      sets,
+      repetitions,
+      type,
+    }));
+
+    const reqBody = {
+      name,
+      workoutType,
+      expLevel,
+      exercises: exercisesArray,
+    };
+    console.log(reqBody);
 
     axios
-      .post(`${API_URL}/workouts`, reqBody)
+      .post(`${API_URL}/api/workouts`, reqBody)
       .then(() => {
         navigate("/workouts");
       })
@@ -72,7 +90,7 @@ function CreateWorkoutPage() {
           <select
             id="workout-type"
             name="workout-type"
-            onChange={(e) => setType(e.target.value)}
+            onChange={(e) => setWorkoutType(e.target.value)}
           >
             <option value="null">-</option>
             <option value="push">Push</option>
@@ -118,16 +136,48 @@ function CreateWorkoutPage() {
               <label>Exercise {index + 1}:</label>
               <input
                 type="text"
-                value={exercise.name}
+                value={exercise.description}
                 onChange={(e) => handleExNumChange(e, index)}
               />
               <label>Sets:</label>
-              
+              <select
+                id="sets"
+                name="sets"
+                onChange={(e) => setSets(e.target.value)}
+              >
+                <option value="null">-</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <select
+                name="type"
+                id="typeRep"
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value="null">-</option>
+                <option value="secs">Seconds</option>
+                <option value="reps">Repetitions</option>
+              </select>
+              <select
+                id="reps"
+                name="reps"
+                onChange={(e) => setRepetitions(e.target.value)}
+              >
+                <option value="null">-</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
             </div>
           ))}
         </div>
         <div>
-            <button type="submit">Create Workout</button>
+          <button type="submit">Create Workout</button>
         </div>
 
         {error && <p>{error}</p>}
