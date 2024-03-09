@@ -44,7 +44,8 @@ function Navbar() {
           <div>
             {open ? (<div>
               <button onClick={()=>{logOut()}}>Logout</button>
-              <button onClick={()=>{navigate(`/profile/${ourUser._id}`)}}>My Profile</button>
+              {/* <button onClick={()=>{navigate(`/profile/${ourUser._id}`)}}>My Profile</button> */}
+              <button onClick={()=>{navigate(`/userprofile/`)}}>My Profile</button>
             </div>) : (<div></div>)}
           </div>
         </div>
