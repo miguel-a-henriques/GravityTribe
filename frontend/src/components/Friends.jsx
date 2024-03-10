@@ -28,7 +28,7 @@ function Friends() {
         users &&
         users.map((user) => (
           <Link to={`/profile/${user._id}`}>
-            <article key={user.id}>
+            <article key={user._id}>
               <h2>{user.name}</h2>
             </article>
           </Link>

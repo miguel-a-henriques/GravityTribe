@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // Initializing context
@@ -39,6 +39,10 @@ function AuthProviderWrapper(props) {
       setIsLoggedIn(false);
     }
   };
+
+  useEffect(() => {
+    authenticateUser();
+  }, []);
 
   const removeToken = () => {
     localStorage.removeItem("authToken");
