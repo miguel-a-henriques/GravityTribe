@@ -28,11 +28,15 @@ function UserProfile() {
         <div>
           <section>
             <h1>{ourUser.name}</h1>
-            {/* <h3>
-              Experience Level: {ourUser.expLevel.charAt(0).toUpperCase() + ourUser.expLevel.slice(1)}
-            </h3> */}
+            <h3>
+              Experience Level:{" "}
+              {ourUser.expLevel
+                ? ourUser.expLevel.charAt(0).toUpperCase() +
+                  ourUser.expLevel.slice(1)
+                : ""}
+            </h3>
             <Link to={`/profile/edit/${ourUser._id}`}>
-                <button>Edit My Profile</button>
+              <button>Edit My Profile</button>
             </Link>
           </section>
           <section>
