@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 function Friends() {
   const [users, setUsers] = useState([]);
   const {user, isLoggedIn} = useContext(AuthContext);
-  const [filteredUsers, setFilteredUsers] = useState([])
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [usersFiltered, setUsersFiltered] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -17,23 +19,41 @@ function Friends() {
           setUsers(response.data);
 
           const filter = response.data.filter((a) => a._id !== user._id);
+          setUsersFiltered(filter);
           setFilteredUsers(filter);
-
-          console.log(user);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user]);
+
+  const handleSearch = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+    const filtered = users.filter((user) =>
+      user.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+
+    if(query === ""){
+      setFilteredUsers(usersFiltered)
+    }
+  };
 
   return (
     <div>
+      <input
+        type="text"
+        placeholder="Search for users..."
+        value={searchQuery}
+        onChange={handleSearch}
+      />
       {isLoggedIn ? (
         filteredUsers &&
         filteredUsers.map((user) => (
-          <Link to={`/profile/${user._id}`}>
-            <article key={user._id}>
+          <Link to={`/profile/${user._id}`} key={user._id}>
+            <article>
               <h2>{user.name}</h2>
             </article>
           </Link>

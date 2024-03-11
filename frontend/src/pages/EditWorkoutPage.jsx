@@ -1,14 +1,18 @@
-import { useState, useEffect, useContext } from "react";
-const API_URL = "http://localhost:5005";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-function CreateWorkoutPage() {
+const API_URL = "http://localhost:5005";
+
+function EditWorkoutPage() {
+  const { id } = useParams();
+  const { user, isLoggedIn } = useContext(AuthContext);
+
   const [name, setName] = useState("");
   const [workoutType, setWorkoutType] = useState("push");
   const [expLevel, setExpLevel] = useState("beginner");
-  const [exNumber, setExNumber] = useState("");
+  const [exNumber, setExNumber] = useState();
   const [exercises, setExercises] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -17,15 +21,15 @@ function CreateWorkoutPage() {
   const [repetitions, setRepetitions] = useState();
   const [description, setDescription] = useState();
 
-  const { user, isLoggedIn } = useContext(AuthContext);
-  const [ourUser, setOurUser] = useState({});
-
   useEffect(() => {
     if (isLoggedIn) {
       axios
-        .get(`${API_URL}/api/user/${user._id}`)
+        .get(`${API_URL}/api/workouts/${id}`)
         .then((response) => {
-          setOurUser(response.data);
+          setWorkoutType(response.data.workoutType);
+          setExpLevel(response.data.expLevel);
+          setExercises(response.data.exercises);
+          setExNumber(response.data.exercises.length);
         })
         .catch((error) => {
           console.log(error);
@@ -74,25 +78,25 @@ function CreateWorkoutPage() {
       workoutType,
       expLevel,
       exercises: exercisesArray,
-      createdBy: ourUser._id,
+      createdBy: user._id,
     };
 
     axios
-      .post(`${API_URL}/api/workouts`, reqBody)
+      .put(`${API_URL}/api/workouts/${id}`, reqBody)
       .then(() => {
-        navigate("/workouts");
+        navigate(`/workouts/${id}`);
       })
       .catch((error) => {
-        setError("Failed to create workout. Please try again.");
+        setError("Failed to edit workout. Please try again.");
         console.log(error);
       });
   };
 
   return (
     <div>
-      {isLoggedIn ? (
+      {isLoggedIn && exNumber ? (
         <div>
-          <h1>Create Your Workout</h1>
+          <h1>Edit Your Workout</h1>
           <form onSubmit={handleWorkoutCreate}>
             <div>
               <label>Name your Workout:</label>
@@ -109,6 +113,7 @@ function CreateWorkoutPage() {
               <select
                 id="workout-type"
                 name="workout-type"
+                defaultValue={workoutType}
                 onChange={(e) => setWorkoutType(e.target.value)}
               >
                 <option value="null">-</option>
@@ -124,6 +129,7 @@ function CreateWorkoutPage() {
               <select
                 id="experience-level"
                 name="experience-level"
+                defaultValue={expLevel}
                 onChange={(e) => setExpLevel(e.target.value)}
               >
                 <option value="null">-</option>
@@ -136,7 +142,12 @@ function CreateWorkoutPage() {
 
             <div>
               <label>Number of exercises:</label>
-              <select id="number" name="number" onChange={handleExNumberChange}>
+              <select
+                id="number"
+                name="number"
+                defaultValue={exNumber}
+                onChange={handleExNumberChange}
+              >
                 <option value="null">-</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -203,10 +214,10 @@ function CreateWorkoutPage() {
           </form>
         </div>
       ) : (
-        <h2>Please Login to create a workout</h2>
+        <h2>Please Login to edit a workout</h2>
       )}
     </div>
   );
 }
 
-export default CreateWorkoutPage;
+export default EditWorkoutPage;

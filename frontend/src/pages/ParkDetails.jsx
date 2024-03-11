@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import ParkReviews from "../components/ParkReviews";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
+import L from "leaflet"
+import { useRef } from "react";
 
 const API_URL = "http://localhost:5005";
 
@@ -12,15 +14,38 @@ function ParkDetails() {
   const [park, setPark] = useState("");
   const [ourUser, setOurUser] = useState({});
   const { user, isLoggedIn } = useContext(AuthContext);
+  const [lat, setLat] = useState("")
+  const [long, setLong] = useState("")
+  const [name, setName] = useState("")
+
+  const mapRef = useRef(null); // Ref for map instance
 
   useEffect(() => {
     axios
       .get(`${API_URL}/api/parks/${id}`)
       .then((response) => {
         setPark(response.data);
+        setLat(response.data.location.lat)
+        setLong(response.data.location.long)
+        setName(response.data.name)
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    if (lat !== "" && long !== "" && !mapRef.current) {
+      mapRef.current = L.map("map").setView([lat, long], 13);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(mapRef.current);
+
+      var marker = L.marker([lat, long]).addTo(mapRef.current);
+      marker.bindPopup(`<b>${name}</b>`).openPopup();
+    }
+  }, [lat, long, name]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -61,11 +86,12 @@ function ParkDetails() {
       console.error("Error deleting review:", error);
     }
   }
-
+ 
   return (
     <div>
       <h2>{park.name}</h2>
       <img src={park.photo} />
+      <div id="map"></div>
       <button>Set new Event</button>
 
       <ParkReviews updatePark={setPark} />
@@ -76,7 +102,7 @@ function ParkDetails() {
               <img src={review.photo} />
               <p>{review.author}</p>
               <p>{review.text}</p>
-              {review.author === ourUser.name && (
+              {review.createdBy === ourUser._id && (
                 <section>
                   <button
                     onClick={() => {

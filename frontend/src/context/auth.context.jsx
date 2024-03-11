@@ -40,6 +40,7 @@ function AuthProviderWrapper(props) {
     }
   };
 
+  // Keeps the user logged in after reloading the page
   useEffect(() => {
     authenticateUser();
   }, []);

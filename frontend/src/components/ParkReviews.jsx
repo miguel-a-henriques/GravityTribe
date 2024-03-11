@@ -35,7 +35,7 @@ function ParkReviews(props) {
       const response = await axios.get(`${API_URL}/api/parks/${id}`);
       const existingData = response.data;
 
-      const review = {text: text, author: ourUser.name, photo: ourUser.photo, revId: Math.random().toString(36).substr(2, 9)}
+      const review = {text: text, author: ourUser.name, createdBy: ourUser._id, photo: ourUser.photo, revId: Math.random().toString(36).substr(2, 9)}
 
       // Add the new review to the existing array
       const updatedPark = {

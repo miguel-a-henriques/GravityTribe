@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import WorkoutsCard from "./WorkoutsCard";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
+
 
 const API_URL = "http://localhost:5005";
 
@@ -9,6 +11,9 @@ function WorkoutsList() {
   const [workouts, setWorkouts] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const navigate = useNavigate();
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const [ourUser, setOurUser] = useState({});
+  const [showMyWorkoutsOnly, setShowMyWorkoutsOnly] = useState(false);
 
   useEffect(() => {
     axios
@@ -21,6 +26,19 @@ function WorkoutsList() {
       });
   }, []);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`)
+        .then((response) => {
+          setOurUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoggedIn]);
+
   const filterWorkoutsByDifficulty = (difficulty) => {
     if (selectedDifficulty === difficulty) {
       setSelectedDifficulty(null);
@@ -29,7 +47,13 @@ function WorkoutsList() {
     }
   };
 
-  const filteredWorkouts = selectedDifficulty ? workouts.filter((workout) => workout.expLevel === selectedDifficulty) : workouts;
+  const toggleShowMyWorkouts = () => {
+    setShowMyWorkoutsOnly((prevState) => !prevState);
+  };
+
+  const filteredWorkouts = selectedDifficulty ? workouts.filter((workout) => workout.expLevel === selectedDifficulty): workouts;
+
+  const displayedWorkouts = showMyWorkoutsOnly ? filteredWorkouts.filter((workout) => workout.createdBy === ourUser._id) : filteredWorkouts;
 
   return (
     <div>
@@ -47,6 +71,9 @@ function WorkoutsList() {
           <button onClick={() => filterWorkoutsByDifficulty("master")}>
             Master
           </button>
+          <button onClick={() => toggleShowMyWorkouts()}>
+            Created By Me
+          </button>
         </section>
 
         <button
@@ -58,9 +85,9 @@ function WorkoutsList() {
         </button>
       </section>
       <section>
-        {filteredWorkouts &&
-          filteredWorkouts.map((workout) => {
-            return <WorkoutsCard workout={workout} id={workout._id} />;
+        {displayedWorkouts &&
+          displayedWorkouts.map((workout) => {
+            return <WorkoutsCard workout={workout} id={workout._id} key={workout._id}/>;
           })}
       </section>
     </div>
