@@ -23,8 +23,11 @@ function Signup() {
   const handleSignUpSubmit = (e) => {
     // Prevent Default Actions of the Form -> refresh the page.
     e.preventDefault();
+    const workouts = []
+    const follow = []
+    const followedBy = []
 
-    const reqBody = { email, password, name, photo, expLevel, type };
+    const reqBody = { email, password, name, photo, expLevel, type, workouts, follow, followedBy };
 
     axios
       .post(`${API_URL}/auth/signup`, reqBody)

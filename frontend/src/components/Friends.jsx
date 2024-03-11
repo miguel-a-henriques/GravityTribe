@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 function Friends() {
   const [users, setUsers] = useState([]);
-  const {user, isLoggedIn} = useContext(AuthContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const [notMyUser, setNotMyUser] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [usersFiltered, setUsersFiltered] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -18,9 +18,12 @@ function Friends() {
         .then((response) => {
           setUsers(response.data);
 
-          const filter = response.data.filter((a) => a._id !== user._id);
-          setUsersFiltered(filter);
-          setFilteredUsers(filter);
+          const filterFriends = response.data.filter(
+            (u) =>
+              user.follow.includes(u.id) && user.followedBy.includes(u.id)
+          );
+          setNotMyUser(filterFriends);
+          setFilteredUsers(filterFriends);
         })
         .catch((error) => {
           console.log(error);
@@ -36,8 +39,8 @@ function Friends() {
     );
     setFilteredUsers(filtered);
 
-    if(query === ""){
-      setFilteredUsers(usersFiltered)
+    if (query === "") {
+      setFilteredUsers(notMyUser);
     }
   };
 
