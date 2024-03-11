@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 function Friends() {
   const [users, setUsers] = useState([]);
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const {user, isLoggedIn} = useContext(AuthContext);
+  const [filteredUsers, setFilteredUsers] = useState([])
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -14,7 +15,11 @@ function Friends() {
         .get(`${API_URL}/api/users`)
         .then((response) => {
           setUsers(response.data);
-          console.log(users);
+
+          const filter = response.data.filter((a) => a._id !== user._id);
+          setFilteredUsers(filter);
+
+          console.log(user);
         })
         .catch((error) => {
           console.log(error);
@@ -25,8 +30,8 @@ function Friends() {
   return (
     <div>
       {isLoggedIn ? (
-        users &&
-        users.map((user) => (
+        filteredUsers &&
+        filteredUsers.map((user) => (
           <Link to={`/profile/${user._id}`}>
             <article key={user._id}>
               <h2>{user.name}</h2>
