@@ -10,15 +10,25 @@ function Signup() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
   const [photo, setPhoto] = useState("https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png");
-  const [expLevel, setExpLevel] = useState("")
-  const [type, setType] = useState("");
+  const [expLevel, setExpLevel] = useState("beginner")
+  const [type, setType] = useState("athlete");
 
   // Initialize navigate
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setPhoto(URL.createObjectURL(e.target.files[0]));
-  };
+  const handleChange = async (e) => {
+    //Create a new form data to put all the image info
+    const uploadData = new FormData();
+    uploadData.append('imageUrl', e.target.files[0]);
+    try {
+        //Send the upload request to the backend
+        const response = await axios.post(`${API_URL}/api/upload`, uploadData);
+        //The backend responds with the cloudinary image url
+        setPhoto(response.data.fileUrl);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   const handleSignUpSubmit = (e) => {
     // Prevent Default Actions of the Form -> refresh the page.
@@ -79,7 +89,7 @@ function Signup() {
         </div>
         <div>
           <label htmlFor="experience-level">Experience Level</label>
-          <select id="experience-level" name="experience-level" defaultValue={"beginner"} onChange={(e) => setExpLevel(e.target.value)}>
+          <select id="experience-level" name="experience-level" onChange={(e) => setExpLevel(e.target.value)}>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
@@ -88,7 +98,7 @@ function Signup() {
         </div>
         <div>
           <label htmlFor="user-type">User Type</label>
-          <select id="user-type" name="user-type" defaultValue={"athlete"} onChange={(e) => setType(e.target.value)}>
+          <select id="user-type" name="user-type" onChange={(e) => setType(e.target.value)}>
             <option value="athlete">Athlete</option>
             <option value="organization">Organization</option>
           </select>

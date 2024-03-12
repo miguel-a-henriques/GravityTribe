@@ -34,7 +34,7 @@ function Posts() {
           setAllPosts(response.data);
         })
         .catch((error) => {
-          console.log(error);   
+          console.log(error);
         });
     }
   }, [isLoggedIn]);
@@ -43,12 +43,13 @@ function Posts() {
     if (isLoggedIn && ourUser && ourUser.follow) {
       setFollowPosts(
         allPosts.filter((post) =>
-          ourUser.follow.some((followedUser) => followedUser._id === post.userId)
+          ourUser.follow.some(
+            (followedUser) => followedUser._id === post.userId
+          )
         )
       );
     }
   }, [isLoggedIn, ourUser, allPosts, showFollowPosts]);
-  
 
   const handlePost = async (e) => {
     e.preventDefault();
@@ -75,8 +76,18 @@ function Posts() {
     }
   };
 
-  const handleChange = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+  const handleChange = async (e) => {
+    //Create a new form data to put all the image info
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+    try {
+      //Send the upload request to the backend
+      const response = await axios.post(`${API_URL}/api/upload`, uploadData);
+      //The backend responds with the cloudinary image url
+      setImage(response.data.fileUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function handleDelete(post) {

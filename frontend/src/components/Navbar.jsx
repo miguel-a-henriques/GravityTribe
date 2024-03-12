@@ -29,7 +29,7 @@ function Navbar() {
           console.log(error);
         });
     }
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn, ourUser]);
   
   return (
     <div className="navbar">

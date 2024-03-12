@@ -27,7 +27,7 @@ function EditProfile() {
           setName(response.data.name);
           setPhoto(response.data.photo);
           setExpLevel(response.data.expLevel);
-          setEmail(response.data.email)
+          setEmail(response.data.email);
         })
         .catch((error) => {
           console.log(error);
@@ -35,8 +35,18 @@ function EditProfile() {
     }
   }, [isLoggedIn, user]);
 
-  const handleChange = (e) => {
-    setPhoto(URL.createObjectURL(e.target.files[0]));
+  const handleChange = async (e) => {
+    //Create a new form data to put all the image info
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", e.target.files[0]);
+    try {
+      //Send the upload request to the backend
+      const response = await axios.post(`${API_URL}/api/upload`, uploadData);
+      //The backend responds with the cloudinary image url
+      setPhoto(response.data.fileUrl);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSignUpSubmit = (e) => {
