@@ -6,10 +6,24 @@ import { Link } from "react-router-dom";
 
 function Friends() {
   const [users, setUsers] = useState([]);
-  const { user, isLoggedIn } = useContext(AuthContext);
-  const [notMyUser, setNotMyUser] = useState([]);
+  const {user, isLoggedIn} = useContext(AuthContext);
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [usersFiltered, setUsersFiltered] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [ourUser, setOurUser] = useState({});
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`)
+        .then((response) => {
+          setOurUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -18,18 +32,17 @@ function Friends() {
         .then((response) => {
           setUsers(response.data);
 
-          const filterFriends = response.data.filter(
-            (u) =>
-              user.follow.includes(u.id) && user.followedBy.includes(u.id)
-          );
-          setNotMyUser(filterFriends);
-          setFilteredUsers(filterFriends);
+          const filter = ourUser.follow;
+
+          // Initial state of the users to be displayed (starts as every user we follow)
+          setFilteredUsers(filter);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn, ourUser]);
+
 
   const handleSearch = (event) => {
     const query = event.target.value;
@@ -39,8 +52,8 @@ function Friends() {
     );
     setFilteredUsers(filtered);
 
-    if (query === "") {
-      setFilteredUsers(notMyUser);
+    if(query === ""){
+      setFilteredUsers(ourUser.follow)
     }
   };
 
@@ -57,6 +70,7 @@ function Friends() {
         filteredUsers.map((user) => (
           <Link to={`/profile/${user._id}`} key={user._id}>
             <article>
+              <img src={user.photo} alt="" style={{width:"50px", height:"50px"}}/>
               <h2>{user.name}</h2>
             </article>
           </Link>

@@ -46,13 +46,13 @@ function Profile() {
       const newFollow = {
         name: thisUser.name,
         photo: thisUser.photo,
-        id: thisUser._id,
+        _id: thisUser._id,
       };
   
       const newFollowed = {
         name: user.name,
         photo: user.photo,
-        id: user._id,
+        _id: user._id,
       };
   
       const updatedUser = {

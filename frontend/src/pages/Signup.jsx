@@ -9,7 +9,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState("https://w7.pngwing.com/pngs/177/551/png-transparent-user-interface-design-computer-icons-default-stephen-salazar-graphy-user-interface-design-computer-wallpaper-sphere-thumbnail.png");
   const [expLevel, setExpLevel] = useState("")
   const [type, setType] = useState("");
 
@@ -79,7 +79,7 @@ function Signup() {
         </div>
         <div>
           <label htmlFor="experience-level">Experience Level</label>
-          <select id="experience-level" name="experience-level" /* defaultValue={"beginner"} */ onChange={(e) => setExpLevel(e.target.value)}>
+          <select id="experience-level" name="experience-level" defaultValue={"beginner"} onChange={(e) => setExpLevel(e.target.value)}>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
@@ -88,7 +88,7 @@ function Signup() {
         </div>
         <div>
           <label htmlFor="user-type">User Type</label>
-          <select id="user-type" name="user-type" /* defaultValue={"athlete"} */ onChange={(e) => setType(e.target.value)}>
+          <select id="user-type" name="user-type" defaultValue={"athlete"} onChange={(e) => setType(e.target.value)}>
             <option value="athlete">Athlete</option>
             <option value="organization">Organization</option>
           </select>
