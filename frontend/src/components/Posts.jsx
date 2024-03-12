@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
 function Posts() {
   const { user, isLoggedIn } = useContext(AuthContext);
-  const [ourUser, setOurUser] = useState("");
-
+  const [ourUser, setOurUser] = useState({});
   const [allPosts, setAllPosts] = useState([]);
-  const [followPosts, setFollowPosts] = useState();
-
+  const [followPosts, setFollowPosts] = useState([]);
   const [text, setText] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+  const [showFollowPosts, setShowFollowPosts] = useState(false); // State to toggle between all posts and follow posts
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -26,7 +24,7 @@ function Posts() {
           console.log(error);
         });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,51 +34,74 @@ function Posts() {
           setAllPosts(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          console.log(error);   
         });
     }
   }, [isLoggedIn]);
 
-  const handlePost = (e) => {
+  useEffect(() => {
+    if (isLoggedIn && ourUser && ourUser.follow) {
+      setFollowPosts(
+        allPosts.filter((post) =>
+          ourUser.follow.some((followedUser) => followedUser._id === post.userId)
+        )
+      );
+    }
+  }, [isLoggedIn, ourUser, allPosts, showFollowPosts]);
+  
+
+  const handlePost = async (e) => {
     e.preventDefault();
 
     const username = ourUser.name;
     const userPhoto = ourUser.photo;
     const userId = ourUser._id;
+    if (ourUser) {
+      try {
+        const response = await axios.post(`${API_URL}/api/posts`, {
+          text,
+          image,
+          username,
+          userPhoto,
+          userId,
+        });
 
-    axios
-      .post(`${API_URL}/api/posts`, {
-        text,
-        image,
-        username,
-        userPhoto,
-        userId,
-      })
-      .then((response) => {
         setText("");
+        setImage("");
         setAllPosts([response.data, ...allPosts]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const handleChange = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
+  function handleDelete(post) {
+    axios
+      .delete(`${API_URL}/api/posts/${post._id}`)
+      .then(() => {
+        axios
+          .get(`${API_URL}/api/posts`)
+          .then((response) => setAllPosts(response.data))
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
       });
-  };
+  }
 
-  function handleDelete(post) {
-    axios.delete(`${API_URL}/api/posts/${post._id}`)
-    .then(() => {
-      axios.get(`${API_URL}/api/posts`)
-      .then((response) => setAllPosts(response.data))
-      .catch((error)=>{console.log(error)})
-    })
-    .catch((error)=>{
-      console.log(error)
-    })
+  const toggleFollowPosts = () => {
+    setShowFollowPosts(!showFollowPosts);
   };
 
   return (
     <div>
       {isLoggedIn ? (
-        /* Form to create a new post */
         <div>
           <form onSubmit={handlePost}>
             <label>Add Post</label>
@@ -90,36 +111,58 @@ function Posts() {
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
+            <div>
+              <label>Photo</label>
+              <input type="file" onChange={handleChange} />
+              <img src={image} style={{ width: "100px", height: "100px" }} />
+            </div>
             <button type="submit">Post</button>
           </form>
           <article>
-            {/*  Posts mapping  */}
-            <button>World</button>
-            {allPosts
-              ? allPosts.map((post) => {
-                  return (
-                    <div key={post._id}>
-                      <article>
-                        <img src={post.image} alt="" />
-                        <p>{post.text}</p>
-                        <img
-                          src={post.userPhoto}
-                          style={{ height: "20px", width: "20px" }}
-                        ></img>
-                        <p>{post.username}</p>
-                      </article>
-                      {post.userId === ourUser._id && (
-                        <section>
-                          <button onClick={()=>handleDelete(post)}>
-                            Delete Post
-                          </button>
-                        </section>
-                      )}
-                    </div>
-                  );
-                })
-              : "No posts to see"}
-            <button>Following</button>
+            <button onClick={toggleFollowPosts}>
+              {showFollowPosts ? "All Posts" : "Following"}
+            </button>
+            {showFollowPosts && followPosts
+              ? followPosts.map((post) => (
+                  <div key={post._id}>
+                    <article>
+                      <img src={post.image} alt="" />
+                      <p>{post.text}</p>
+                      <img
+                        src={post.userPhoto}
+                        style={{ height: "20px", width: "20px" }}
+                      ></img>
+                      <p>{post.username}</p>
+                    </article>
+                    {post.userId === ourUser._id && (
+                      <section>
+                        <button onClick={() => handleDelete(post)}>
+                          Delete Post
+                        </button>
+                      </section>
+                    )}
+                  </div>
+                ))
+              : allPosts.map((post) => (
+                  <div key={post._id}>
+                    <article>
+                      <img src={post.image} alt="" />
+                      <p>{post.text}</p>
+                      <img
+                        src={post.userPhoto}
+                        style={{ height: "20px", width: "20px" }}
+                      ></img>
+                      <p>{post.username}</p>
+                    </article>
+                    {post.userId === ourUser._id && (
+                      <section>
+                        <button onClick={() => handleDelete(post)}>
+                          Delete Post
+                        </button>
+                      </section>
+                    )}
+                  </div>
+                ))}
           </article>
         </div>
       ) : (
