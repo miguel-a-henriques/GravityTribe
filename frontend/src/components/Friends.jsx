@@ -8,7 +8,6 @@ function Friends() {
   const [users, setUsers] = useState([]);
   const {user, isLoggedIn} = useContext(AuthContext);
   const [filteredUsers, setFilteredUsers] = useState([]);
-  const [usersFiltered, setUsersFiltered] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [ourUser, setOurUser] = useState({});
 
