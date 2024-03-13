@@ -30,7 +30,11 @@ function Navbar() {
         });
     }
   }, [isLoggedIn]);
-  
+
+  const handleLogOut = () =>{
+    logOut();
+    navigate("/")
+  }  
   return (
     <div className="navbar">
 
@@ -43,7 +47,7 @@ function Navbar() {
           <img src={ourUser.photo} style={{borderRadius: "50%"}} onClick={handleOpen}/>
           <div>
             {open ? (<div>
-              <button onClick={()=>{logOut()}}>Logout</button>
+              <button onClick={handleLogOut}>Logout</button>
               {/* <button onClick={()=>{navigate(`/profile/${ourUser._id}`)}}>My Profile</button> */}
               <button onClick={()=>{navigate(`/userprofile/`)}}>My Profile</button>
             </div>) : (<div></div>)}

@@ -10,6 +10,7 @@ const API_URL = "http://localhost:5005";
 function UserProfile() {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [ourUser, setOurUser] = useState({});
+  const [allPosts, setAllPosts] = useState();
 
   const [allWorkouts, setAllWorkouts] = useState();
 
@@ -35,6 +36,12 @@ function UserProfile() {
       });
   }, []);
 
+  useEffect(()=> {
+  axios.get(`${API_URL}/api/posts`)
+  .then((response) => setAllPosts(response.data))
+  .catch((error) => console.log(error.response ? error.response.data : error))
+  }, [])
+
   return (
     <div>
       {isLoggedIn && ourUser ? (
@@ -55,6 +62,25 @@ function UserProfile() {
           </section>
           <section>
             <h1>Posts</h1>
+                {isLoggedIn && allPosts && ourUser && ourUser._id && allPosts.some((post) => post.userId === ourUser._id) ? (
+                  allPosts.map((post, index) => {
+                    return (
+                      <section key={index}>
+                      {post.userId === ourUser._id ? (
+                        <article>
+                        <img src={post.image} alt="" />
+                        <p>{post.text}</p>
+                        <img
+                          src={post.userPhoto}
+                          style={{ height: "20px", width: "20px" }}
+                        ></img>
+                        <p>{post.username}</p>
+                        </article>
+                      ) : ("")}
+                      </section>
+                    )
+                  })
+                ) : ("You haven't shared anything yet!")}
           </section>
           <section>
             <h1>Workouts</h1>

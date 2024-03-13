@@ -12,6 +12,7 @@ function Profile() {
   const [allWorkouts, setAllWorkouts] = useState([]);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [ourUser, setOurUser] = useState();
+  const [allPosts, setAllPosts] = useState();
 
   useEffect(() => {
     axios
@@ -47,6 +48,12 @@ function Profile() {
         console.log(error);
       });
   }, []);
+
+  useEffect(()=> {
+    axios.get(`${API_URL}/api/posts`)
+    .then((response) => setAllPosts(response.data))
+    .catch((error) => console.log(error.response ? error.response.data : error))
+    }, [])
 
   const userWorkouts = allWorkouts.filter(
     (workout) => workout.createdBy === thisUser._id
@@ -138,6 +145,25 @@ function Profile() {
       </section>
       <section>
         <h2>Posts</h2>
+          {isLoggedIn && thisUser && thisUser._id && allPosts && allPosts.some((post) => post.userId === thisUser._id) ? (
+            allPosts.map((post, index) =>{
+              return(
+                <article key={index}>
+                  {post.userId === thisUser._id ? (
+                    <article>
+                      <img src={post.image} alt="" />
+                        <p>{post.text}</p>
+                        <img
+                          src={post.userPhoto}
+                          style={{ height: "20px", width: "20px" }}
+                        ></img>
+                        <p>{post.username}</p>
+                    </article>
+                  ) : ("")}
+                </article>
+              )
+            })
+          ) : (`${thisUser.name} hasn't posted yet.`)}
       </section>
       <section>
         <h2>Workouts</h2>
