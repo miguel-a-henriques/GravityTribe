@@ -67,7 +67,7 @@ function EditProfile() {
   };
 
   return (
-    <div>
+    <div className="page">
       {isLoggedIn && ourUser ? (
         <div>
           <h1>Edit My Profile</h1>

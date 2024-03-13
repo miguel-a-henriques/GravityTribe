@@ -45,18 +45,18 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/parkslist" element={<ParksList />} />
-        <Route path="/parkdetails/:id" element={<ParkDetails />} />
-        <Route path="/workouts" element={<WorkoutsPage />} />
-        <Route path="/workouts/:id" element={<WorkoutDetails />} />
-        <Route path='/workouts/create' element={<CreateWorkoutPage/>}/>
-        <Route path="/editworkout/:id" element={<EditWorkoutPage />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/eventdetails/:id" element={<EventDetails />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/userprofile" element={<UserProfile />} />
-        <Route path="/profile/edit/:id" element={<EditProfile />} />
+        <Route path="/" element={<HomePage className="page"/>} />
+        <Route path="/parkslist" element={<ParksList className="page"/>} />
+        <Route path="/parkdetails/:id" element={<ParkDetails className="page"/>} />
+        <Route path="/workouts" element={<WorkoutsPage className="page"/>} />
+        <Route path="/workouts/:id" element={<WorkoutDetails className="page"/>} />
+        <Route path='/workouts/create' element={<CreateWorkoutPage className="page"/>}/>
+        <Route path="/editworkout/:id" element={<EditWorkoutPage className="page"/>} />
+        <Route path="/events" element={<Events className="page"/>} />
+        <Route path="/eventdetails/:id" element={<EventDetails className="page"/>} />
+        <Route path="/profile/:id" element={<Profile className="page"/>} />
+        <Route path="/userprofile" element={<UserProfile className="page"/>} />
+        <Route path="/profile/edit/:id" element={<EditProfile className="page"/>} />
         <Route path='/about' element={<About />} />
 
         {/* FallBack page 404 */}

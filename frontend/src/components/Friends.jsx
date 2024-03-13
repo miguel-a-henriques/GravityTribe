@@ -57,7 +57,7 @@ function Friends() {
   };
 
   return (
-    <div>
+    <div className="friends-bar">
       <input
         type="text"
         placeholder="Search for users..."
@@ -69,7 +69,7 @@ function Friends() {
         filteredUsers.map((user) => (
           <Link to={`/profile/${user._id}`} key={user._id}>
             <article>
-              <img src={user.photo} alt="" style={{width:"50px", height:"50px"}}/>
+              <img src={user.photo} style={{width:"50px", height:"50px"}}/>
               <h2>{user.name}</h2>
             </article>
           </Link>

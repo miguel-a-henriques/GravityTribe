@@ -88,7 +88,7 @@ function ParkDetails() {
   }
  
   return (
-    <div>
+    <div className="page">
       <h2>{park.name}</h2>
       <img src={park.photo} />
       <div id="map"></div>

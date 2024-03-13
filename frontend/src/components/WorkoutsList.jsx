@@ -56,7 +56,7 @@ function WorkoutsList() {
   const displayedWorkouts = showMyWorkoutsOnly ? filteredWorkouts.filter((workout) => workout.createdBy === ourUser._id) : filteredWorkouts;
 
   return (
-    <div>
+    <div className="page">
       <section id={"skillsLevelsButtons"}>
         <section>
           <button onClick={() => filterWorkoutsByDifficulty("beginner")}>

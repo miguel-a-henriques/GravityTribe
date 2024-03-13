@@ -19,7 +19,7 @@ function ParksList() {
       });
   }, []);
   return (
-    <div>
+    <div className="page">
       <div>
         {parks.map((entry) => (
           <ParkCard key={entry._id} entry={entry} id={entry._id} />

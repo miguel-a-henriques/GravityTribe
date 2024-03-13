@@ -132,7 +132,7 @@ function Profile() {
   
 
   return (
-    <div>
+    <div className="page">
       <section>
         <img src={thisUser.photo} alt="User's Photo" />
         <h2>{thisUser.name}</h2>

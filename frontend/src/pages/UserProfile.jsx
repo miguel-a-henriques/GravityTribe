@@ -43,7 +43,7 @@ function UserProfile() {
   }, [])
 
   return (
-    <div>
+    <div className="page">
       {isLoggedIn && ourUser ? (
         <div>
           <section>

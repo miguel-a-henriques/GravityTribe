@@ -93,7 +93,7 @@ function EditWorkoutPage() {
   };
 
   return (
-    <div>
+    <div className="page">
       {isLoggedIn && exNumber ? (
         <div>
           <h1>Edit Your Workout</h1>

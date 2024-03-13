@@ -2,50 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* #root {
-  max-width: 0;
-  margin: 0 ;
-  padding: 0;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
 /* Working from here downwards ----------------------------------------------------- */
+
+.page{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  align-items: center;
+}
 
 /* Navbar component */
 
@@ -57,14 +21,40 @@
   align-items: center;
   position: fixed;
   top: 0;
+  left: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid orange;
 }
 .navbar img{
   width: 80px;
   height: 80px;
+  padding: 70px;
 }
 
 #map { height: 180px; }
 
 /* Friends component */
 
+.friends-bar{
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: 100vh;
+  top: 101px;
+  position: fixed;
+  right: 0;
+  border: 1px solid green;
+}
+
+.buttons-bar{
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: 100vh;
+  top: 101px;
+  position: fixed;
+  left: 0;
+  justify-content: space-evenly;  
+  align-items: center;
+  border: 1px solid red;
+}

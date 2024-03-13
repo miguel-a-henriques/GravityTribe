@@ -75,7 +75,7 @@ function WorkoutDetails() {
   }
 
   return (
-    <div>
+    <div className="page">
       <section>
         <img></img>
         <h1>{workout.workoutType}</h1>

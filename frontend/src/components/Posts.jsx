@@ -111,7 +111,7 @@ function Posts() {
   };
 
   return (
-    <div>
+    <div className="page">
       {isLoggedIn ? (
         <div>
           <form onSubmit={handlePost}>

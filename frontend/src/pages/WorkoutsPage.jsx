@@ -3,7 +3,7 @@ import WorkoutsList from '../components/WorkoutsList';
 
 function WorkoutsPage() {
   return (
-    <div>
+    <div className="page">
       <WorkoutsList/>
     </div>
   )

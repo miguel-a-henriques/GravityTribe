@@ -3,7 +3,7 @@ import Posts from '../components/Posts'
 
 function HomePage() {
   return (
-    <div>
+    <div className="page">
       <Posts/>
     </div>
   )

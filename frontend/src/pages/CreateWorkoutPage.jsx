@@ -89,7 +89,7 @@ function CreateWorkoutPage() {
   };
 
   return (
-    <div>
+    <div className="page">
       {isLoggedIn ? (
         <div>
           <h1>Create Your Workout</h1>
