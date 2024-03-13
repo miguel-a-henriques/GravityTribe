@@ -68,7 +68,7 @@ function Friends() {
         filteredUsers &&
         filteredUsers.map((user) => (
           <Link to={`/profile/${user._id}`} key={user._id}>
-            <article>
+            <article className="friend-card">
               <img src={user.photo} style={{width:"50px", height:"50px"}}/>
               <h2>{user.name}</h2>
             </article>

@@ -4,10 +4,10 @@
 
 /* Working from here downwards ----------------------------------------------------- */
 
-.page{
+.page {
   display: flex;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 130px;
   align-items: center;
 }
 
@@ -25,17 +25,19 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid orange;
 }
-.navbar img{
+.navbar img {
   width: 80px;
   height: 80px;
-  padding: 70px;
+  padding: 0px 70px;
 }
 
-#map { height: 180px; }
+#map {
+  height: 180px;
+}
 
 /* Friends component */
 
-.friends-bar{
+.friends-bar {
   display: flex;
   flex-direction: column;
   width: 20vw;
@@ -46,7 +48,7 @@
   border: 1px solid green;
 }
 
-.buttons-bar{
+.buttons-bar {
   display: flex;
   flex-direction: column;
   width: 20vw;
@@ -54,7 +56,56 @@
   top: 101px;
   position: fixed;
   left: 0;
-  justify-content: space-evenly;  
+  justify-content: space-evenly;
   align-items: center;
   border: 1px solid red;
+}
+
+/* User profile */
+
+.user-card {
+  display: flex;
+  align-items: space-between;
+  gap: 40px;
+  border: 1px solid black;
+  padding: 15px 45px;
+}
+.user-profile-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 3px solid black;
+}
+.user-card-info {
+  display: flex;
+  flex-direction: column;
+}
+.user-card-info h1 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.user-following {
+  display: flex;
+  gap: 50px;
+}
+.user-exp-button {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.user-exp-button img {
+  width: 20px;
+  height: 20px;
+}
+.user-exp-button button {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 30px;
+}
+
+.follow-button{
+  width: 100px;
+  font-weight: bold;
 }
