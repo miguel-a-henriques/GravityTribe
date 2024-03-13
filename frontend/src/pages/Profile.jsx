@@ -11,6 +11,7 @@ function Profile() {
   const [thisUser, setThisUser] = useState({});
   const [allWorkouts, setAllWorkouts] = useState([]);
   const { user, isLoggedIn } = useContext(AuthContext);
+  const [ourUser, setOurUser] = useState();
 
   useEffect(() => {
     axios
@@ -22,6 +23,19 @@ function Profile() {
         console.log(error);
       });
   }, [id]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      axios
+        .get(`${API_URL}/api/user/${user._id}`)
+        .then((response) => {
+          setOurUser(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
     axios
@@ -75,14 +89,52 @@ function Profile() {
     } catch (error) {
       console.error("Error while following this user", error);
     }
+    window.location.reload();
   };
+
+  const handleUnfollowUser = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/user/${user._id}`);
+      const existingData = response.data;
+  
+      const updatedUser = {
+        ...existingData,
+        follow: existingData.follow.some((followedUser) => followedUser._id !== thisUser._id),
+      };
+  
+      await axios.put(`${API_URL}/api/user/${user._id}`, updatedUser);
+      console.log("You no longer follow this user.");
+  
+      // Update the user that was being followed (thisUser)
+      const responseThisUser = await axios.get(`${API_URL}/api/user/${thisUser._id}`);
+      const existingThisUserData = responseThisUser.data;
+  
+      const updatedThisUser = {
+        ...existingThisUserData,
+        followedBy: existingThisUserData.followedBy.some((followerUser) => followerUser._id !== user._id),
+      };
+  
+      await axios.put(`${API_URL}/api/user/${thisUser._id}`, updatedThisUser);
+      console.log("You are no longer followed by this user.");
+  
+    } catch (error) {
+      console.error("Error while unfollowing this user", error);
+    }
+    window.location.reload();
+  };
+  
 
   return (
     <div>
       <section>
         <img src={thisUser.photo} alt="User's Photo" />
         <h2>{thisUser.name}</h2>
-        <button onClick={handleFollowUser}>Follow</button>
+        {isLoggedIn && ourUser && ourUser.follow && ourUser.follow.some((followedUser) => followedUser._id === thisUser._id) ? (
+          <button onClick={handleUnfollowUser}>Unfollow</button>
+        ) : (
+          <button onClick={handleFollowUser}>Follow</button>
+        )}
+        
       </section>
       <section>
         <h2>Posts</h2>

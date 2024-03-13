@@ -29,13 +29,13 @@ function Navbar() {
           console.log(error);
         });
     }
-  }, [isLoggedIn, ourUser]);
+  }, [isLoggedIn]);
   
   return (
     <div className="navbar">
 
       <a onClick={() => navigate("")}>
-        <img src="src/images/GT_LOGO.png" />
+        <img src="https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" />
       </a>
 
       {isLoggedIn ? (
