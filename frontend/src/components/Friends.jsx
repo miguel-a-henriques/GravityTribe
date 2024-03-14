@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 //import search from "../images/search.png"
@@ -65,7 +65,7 @@ function Friends() {
         onChange={handleSearch}/>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="10 10 50 50"
+          viewBox="0 0 50 50"
           fill="currentColor"
           className="w-4 h-4 opacity-70"
         >

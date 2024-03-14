@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { useEffect } from "react";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function ParkReviews(props) {
   const [text, setText] = useState("");

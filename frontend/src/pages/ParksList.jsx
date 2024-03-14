@@ -3,7 +3,7 @@ import ParkCard from "../components/ParkCard";
 import { useState } from "react";
 import axios from "axios";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function ParksList() {
   const [parks, setParks] = useState([]);

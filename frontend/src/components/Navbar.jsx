@@ -5,7 +5,7 @@ import { useContext } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function Navbar() {
   const { isLoggedIn, logOut, user } = useContext(AuthContext);

@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 import editImage from "../images/edit.png";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function UserProfile() {
   const { user, isLoggedIn } = useContext(AuthContext);

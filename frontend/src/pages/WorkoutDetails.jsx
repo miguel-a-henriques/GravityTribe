@@ -6,7 +6,7 @@ import { AuthContext } from "../context/auth.context";
 import "tailwindcss/tailwind.css"
 import "daisyui/dist/full.css"
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function WorkoutDetails() {
   const { id } = useParams();

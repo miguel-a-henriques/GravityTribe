@@ -7,7 +7,7 @@ import { AuthContext } from "../context/auth.context";
 import L from "leaflet"
 import { useRef } from "react";
 
-const API_URL = "http://localhost:5005";
+const API_URL = "https://gravitytribe.onrender.com";
 
 function ParkDetails() {
   const { id } = useParams();
