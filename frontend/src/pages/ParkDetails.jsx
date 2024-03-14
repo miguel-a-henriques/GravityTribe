@@ -92,7 +92,7 @@ function ParkDetails() {
       <h2>{park.name}</h2>
       <img src={park.photo} />
       <div id="map"></div>
-      <button>Set new Event</button>
+      <button>Coming Soon</button>
 
       <ParkReviews updatePark={setPark} />
       <section>

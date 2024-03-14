@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
@@ -165,10 +165,10 @@ function Profile() {
                   : ""}
               </h3>
               {isLoggedIn &&
-              thisUser &&
-              thisUser.follow &&
-              thisUser.follow.some(
-                (followedUser) => followedUser._id === thisUser._id
+              thisUser && ourUser && ourUser._id &&
+              thisUser.followedBy &&
+              thisUser.followedBy.some(
+                (followedUser) => followedUser._id === ourUser._id
               ) ? (
                 <button onClick={handleUnfollowUser} className="follow-button">
                   Unfollow
@@ -216,7 +216,9 @@ function Profile() {
         {userWorkouts.length > 0 ? (
           userWorkouts.map((workout, index) => (
             <article key={index}>
+              <Link to={`/workouts/${workout._id}`}>
               <h2>{workout.name}</h2>
+              </Link>
             </article>
           ))
         ) : (

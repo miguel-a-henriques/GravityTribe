@@ -123,7 +123,9 @@ function UserProfile() {
                   return (
                     <article key={index}>
                       {workout.createdBy === ourUser._id ? (
+                        <Link to={`/workouts/${workout._id}`}>
                         <h2>{workout.name}</h2>
+                        </Link>
                       ) : (
                         ""
                       )}

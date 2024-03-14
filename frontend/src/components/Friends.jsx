@@ -67,9 +67,9 @@ function Friends() {
       />
       {isLoggedIn ? (
         filteredUsers &&
-        filteredUsers.map((user) => (
-          <div>
-            <Link to={`/profile/${user._id}`} key={user._id}>
+        filteredUsers.map((user, index) => (
+          <div key={index}>
+            <Link to={`/profile/${user._id}`}>
               <article className="friend-card">
                 <img
                   src={user.photo}

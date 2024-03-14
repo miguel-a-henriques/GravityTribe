@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import "tailwindcss/tailwind.css"
+import "daisyui/dist/full.css"
 
 const API_URL = "http://localhost:5005";
 
@@ -78,7 +80,8 @@ function WorkoutDetails() {
     <div className="page">
       <section>
         <img></img>
-        <h1>{workout.workoutType}</h1>
+        <h1>{workout.name}</h1>
+        <h2>{workout.workoutType}</h2>
         <h3>{workout.expLevel}</h3>
         {workout &&
           workout.exercises.map((single) => {
