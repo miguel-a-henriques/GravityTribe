@@ -52,7 +52,7 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className="page">
       <h1>Sign-up Page</h1>
       <form onSubmit={handleSignUpSubmit}>
         <div>
