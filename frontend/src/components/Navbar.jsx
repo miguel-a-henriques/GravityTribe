@@ -120,7 +120,7 @@ function Navbar() {
     </div>
   </div>
 ) : (
-        <button onClick={() => navigate("/login")}>Login</button>
+        <button className="btn-following-allposts" onClick={() => navigate("/login")}>Login</button>
       )}
     </div>
   );

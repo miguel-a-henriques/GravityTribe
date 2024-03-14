@@ -95,7 +95,7 @@ function Friends() {
           </div>
         ))
       ) : (
-        <h2>Login to See Users</h2>
+        <h2 style={{color: "white", marginTop: "30px", marginLeft:"15px"}}>Login to See Users</h2>
       )}
     </div>
   );
