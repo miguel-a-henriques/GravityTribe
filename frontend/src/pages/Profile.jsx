@@ -105,30 +105,30 @@ function Profile() {
     try {
       const response = await axios.get(`${API_URL}/api/user/${user._id}`);
       const existingData = response.data;
-
+  
       const updatedUser = {
         ...existingData,
-        follow: existingData.follow.some(
+        follow: existingData.follow.filter(
           (followedUser) => followedUser._id !== thisUser._id
         ),
       };
-
+  
       await axios.put(`${API_URL}/api/user/${user._id}`, updatedUser);
       console.log("You no longer follow this user.");
-
+  
       // Update the user that was being followed (thisUser)
       const responseThisUser = await axios.get(
         `${API_URL}/api/user/${thisUser._id}`
       );
       const existingThisUserData = responseThisUser.data;
-
+  
       const updatedThisUser = {
         ...existingThisUserData,
-        followedBy: existingThisUserData.followedBy.some(
+        followedBy: existingThisUserData.followedBy.filter(
           (followerUser) => followerUser._id !== user._id
         ),
       };
-
+  
       await axios.put(`${API_URL}/api/user/${thisUser._id}`, updatedThisUser);
       console.log("You are no longer followed by this user.");
     } catch (error) {
@@ -183,8 +183,8 @@ function Profile() {
         </div>
       </section>
 
-      <section>
-        <h2>Posts</h2>
+      <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
+        <h1>Posts</h1>
         {isLoggedIn &&
         thisUser &&
         thisUser._id &&
@@ -192,17 +192,25 @@ function Profile() {
         allPosts.some((post) => post.userId === thisUser._id)
           ? allPosts.map((post, index) => {
               return (
-                <article key={index}>
+                <article key={index} className="post">
                   {post.userId === thisUser._id ? (
                     <article>
-                      <img src={post.image} alt="" />
-                      <p>{post.text}</p>
-                      <img
-                        src={post.userPhoto}
-                        style={{ height: "20px", width: "20px" }}
-                      ></img>
-                      <p>{post.username}</p>
-                    </article>
+                    <div className="post-header">
+                      <Link to={`/profile/${post.userId}`}>
+                        <img
+                          src={post.userPhoto}
+                          style={{ height: "50px", width: "50px" }}
+                        ></img>
+                      </Link>
+                      <Link to={`/profi/${post.userId}`}>
+                        <p style={{ color: "black" }}>
+                          {post.username}
+                        </p>
+                      </Link>
+                    </div>
+                    <img src={post.image} className="post-img" />
+                    <p className="post-text">{post.text}</p>
+                  </article>
                   ) : (
                     ""
                   )}
@@ -211,8 +219,8 @@ function Profile() {
             })
           : `${thisUser.name} hasn't posted yet.`}
       </section>
-      <section>
-        <h2>Workouts</h2>
+      <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
+        <h1>Workouts</h1>
         {userWorkouts.length > 0 ? (
           userWorkouts.map((workout, index) => (
             <article key={index}>

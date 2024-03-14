@@ -91,25 +91,27 @@ function CreateWorkoutPage() {
   return (
     <div className="page">
       {isLoggedIn ? (
-        <div>
+        <div style={{marginTop: "50px", display: "flex", flexDirection: "column", justifyContent:"center", alignItems: "center", gap: "50px"}}>
           <h1>Create Your Workout</h1>
-          <form onSubmit={handleWorkoutCreate}>
-            <div>
-              <label>Name your Workout:</label>
+          <form onSubmit={handleWorkoutCreate} style={{marginBottom: "20px"}}>
+            <div style={{marginBottom: "20px"}}>
+              <label>Name your Workout: </label>
               <input
                 type="text"
                 name="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                style={{color: "white", padding: "5px",  marginLeft: "5px"}}
               />
             </div>
 
-            <div>
-              <label>Workout Type:</label>
+            <div style={{marginBottom: "20px"}}>
+              <label>Workout Type: </label>
               <select
                 id="workout-type"
                 name="workout-type"
                 onChange={(e) => setWorkoutType(e.target.value)}
+                style={{color: "white", padding: "5px",  marginLeft: "5px"}}
               >
                 <option value="null">-</option>
                 <option value="push">Push</option>
@@ -119,12 +121,13 @@ function CreateWorkoutPage() {
               </select>
             </div>
 
-            <div>
-              <label>Experience Level</label>
+            <div style={{marginBottom: "20px"}}>
+              <label>Experience Level: </label>
               <select
                 id="experience-level"
                 name="experience-level"
                 onChange={(e) => setExpLevel(e.target.value)}
+                style={{color: "white", padding: "5px",  marginLeft: "5px"}}
               >
                 <option value="null">-</option>
                 <option value="beginner">Beginner</option>
@@ -134,9 +137,9 @@ function CreateWorkoutPage() {
               </select>
             </div>
 
-            <div>
-              <label>Number of exercises:</label>
-              <select id="number" name="number" onChange={handleExNumberChange}>
+            <div style={{marginBottom: "20px"}}>
+              <label>Number of exercises: </label>
+              <select id="number" name="number" onChange={handleExNumberChange} style={{color: "white", padding: "5px",  marginLeft: "5px"}}>
                 <option value="null">-</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
@@ -151,18 +154,20 @@ function CreateWorkoutPage() {
 
             <div>
               {exercises.map((exercise, index) => (
-                <div key={index}>
-                  <label>Exercise {index + 1}:</label>
+                <div key={index} style={{marginBottom: "20px"}}>
+                  <label>Exercise {index + 1}: </label>
                   <input
                     type="text"
                     value={exercise.description}
                     onChange={(e) => handleExNumChange(e, index)}
+                    style={{color: "white", padding: "5px",  marginLeft: "5px"}}
                   />
-                  <label>Sets:</label>
+                  <label> Sets: </label>
                   <select
                     id="sets"
                     name="sets"
                     onChange={(e) => setSets(e.target.value)}
+                    style={{color: "white", padding: "5px",  marginLeft: "5px"}}
                   >
                     <option value="null">-</option>
                     <option value="3">3</option>
@@ -170,19 +175,12 @@ function CreateWorkoutPage() {
                     <option value="5">5</option>
                     <option value="6">6</option>
                   </select>
-                  <select
-                    name="type"
-                    id="typeRep"
-                    onChange={(e) => setType(e.target.value)}
-                  >
-                    <option value="null">-</option>
-                    <option value="secs">Seconds</option>
-                    <option value="reps">Repetitions</option>
-                  </select>
+                  
                   <select
                     id="reps"
                     name="reps"
                     onChange={(e) => setRepetitions(e.target.value)}
+                    style={{color: "white", padding: "5px",  marginLeft: "5px"}}
                   >
                     <option value="null">-</option>
                     <option value="3">3</option>
@@ -192,11 +190,21 @@ function CreateWorkoutPage() {
                     <option value="15">15</option>
                     <option value="20">20</option>
                   </select>
+                  <select
+                    name="type"
+                    id="typeRep"
+                    onChange={(e) => setType(e.target.value)}
+                    style={{color: "white", padding: "5px",  marginLeft: "5px"}}
+                  >
+                    <option value="null">-</option>
+                    <option value="secs">Seconds</option>
+                    <option value="reps">Repetitions</option>
+                  </select>
                 </div>
               ))}
             </div>
             <div>
-              <button type="submit">Create Workout</button>
+              <button type="submit" className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", marginTop:"40px"}}>Create Workout</button>
             </div>
 
             {error && <p>{error}</p>}

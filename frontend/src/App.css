@@ -82,7 +82,7 @@ White - #ffffff
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  margin-top: 70px;
+  margin-top: 40px;
 }
 
 .search__input {
@@ -140,6 +140,7 @@ White - #ffffff
   gap: 40px;
   border: 1px solid black;
   padding: 15px 45px;
+  margin-top: 70px;
 }
 .user-profile-img {
   width: 200px;

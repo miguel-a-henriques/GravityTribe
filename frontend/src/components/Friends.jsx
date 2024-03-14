@@ -33,11 +33,7 @@ function Friends() {
         .get(`${API_URL}/api/users`)
         .then((response) => {
           setUsers(response.data);
-
-          const filter = ourUser.follow;
-
-          // Initial state of the users to be displayed (starts as every user we follow)
-          setFilteredUsers(filter);
+          setFilteredUsers(ourUser.follow);
         })
         .catch((error) => {
           console.log(error);
