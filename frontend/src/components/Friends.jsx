@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/auth.context";
 const API_URL = "http://localhost:5005";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Friends() {
   const [users, setUsers] = useState([]);
-  const {user, isLoggedIn} = useContext(AuthContext);
+  const { user, isLoggedIn } = useContext(AuthContext);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [ourUser, setOurUser] = useState({});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -42,7 +44,6 @@ function Friends() {
     }
   }, [isLoggedIn, ourUser]);
 
-
   const handleSearch = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
@@ -51,8 +52,8 @@ function Friends() {
     );
     setFilteredUsers(filtered);
 
-    if(query === ""){
-      setFilteredUsers(ourUser.follow)
+    if (query === "") {
+      setFilteredUsers(ourUser.follow);
     }
   };
 
@@ -67,12 +68,18 @@ function Friends() {
       {isLoggedIn ? (
         filteredUsers &&
         filteredUsers.map((user) => (
-          <Link to={`/profile/${user._id}`} key={user._id}>
-            <article className="friend-card">
-              <img src={user.photo} style={{width:"50px", height:"50px"}}/>
-              <h2>{user.name}</h2>
-            </article>
-          </Link>
+          <div>
+            <Link to={`/profile/${user._id}`} key={user._id}>
+              <article className="friend-card">
+                <img
+                  src={user.photo}
+                  style={{ width: "50px", height: "50px" }}
+                />
+                <h2>{user.name}</h2>
+              </article>
+            </Link>
+            <button onClick={() => navigate(`/messages/${user._id}`)}>Message</button>
+          </div>
         ))
       ) : (
         <h2>Login to See Users</h2>

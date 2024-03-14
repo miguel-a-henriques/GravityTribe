@@ -18,11 +18,13 @@ import EditProfile from "./pages/EditProfile";
 import About from "./pages/About";
 import CreateWorkoutPage from "./pages/CreateWorkoutPage";
 import EditWorkoutPage from "./pages/EditWorkoutPage";
+import MessagesPage from "./pages/MessagesPage";
 
 // Importing the components
 import Navbar from "./components/Navbar";
 import Friends from "./components/Friends";
 import Buttons from "./components/Buttons";
+
 
 
 function App() {
@@ -57,6 +59,7 @@ function App() {
         <Route path="/profile/:id" element={<Profile className="page"/>} />
         <Route path="/userprofile" element={<UserProfile className="page"/>} />
         <Route path="/profile/edit/:id" element={<EditProfile className="page"/>} />
+        <Route path='/messages/:id' element={<MessagesPage />} />
         <Route path='/about' element={<About />} />
 
         {/* FallBack page 404 */}
