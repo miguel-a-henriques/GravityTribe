@@ -24,6 +24,7 @@ function Navbar() {
         .get(`${API_URL}/api/user/${user._id}`)
         .then((response) => {
           setOurUser(response.data);
+          setOpen(false);
         })
         .catch((error) => {
           console.log(error);
@@ -44,7 +45,7 @@ function Navbar() {
 
       {isLoggedIn ? (
         <div>
-          <img src={ourUser.photo} style={{borderRadius: "50%"}} onClick={handleOpen}/>
+          <img src={ourUser.photo} style={{borderRadius: "50%"}} onClick={handleOpen} className="user-icon"/>
           <div>
             {open ? (<div>
               <button onClick={handleLogOut}>Logout</button>

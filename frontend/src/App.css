@@ -28,7 +28,14 @@
 .navbar img {
   width: 80px;
   height: 80px;
-  padding: 0px 70px;
+  margin: 0px 70px;
+}
+
+.user-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0px 70px;
+  border: 2px solid black;
 }
 
 #map {
@@ -46,19 +53,6 @@
   position: fixed;
   right: 0;
   border: 1px solid green;
-}
-
-.buttons-bar {
-  display: flex;
-  flex-direction: column;
-  width: 20vw;
-  height: 100vh;
-  top: 101px;
-  position: fixed;
-  left: 0;
-  justify-content: space-evenly;
-  align-items: center;
-  border: 1px solid red;
 }
 
 /* User profile */
@@ -104,8 +98,39 @@
   padding: 5px 10px;
   margin-left: 30px;
 }
-
-.follow-button{
+.follow-button {
   width: 100px;
   font-weight: bold;
+}
+
+/* Buttons for the navigation */
+
+.buttons-bar {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+  height: calc(100vh - 100px);
+  top: 101px;
+  position: fixed;
+  left: 0;
+  justify-content: space-evenly;
+  align-items: center;
+  /*   border: 1px solid red; */
+}
+.button-left {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 170px;
+  height: 150px;
+  font-weight: bold;
+}
+.button-left img {
+  width: 100px;
+  height: 100px;
 }

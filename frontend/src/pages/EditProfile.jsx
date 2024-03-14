@@ -63,7 +63,7 @@ function EditProfile() {
         setError("Error while editing profile");
         console.log(error);
       });
-      window.location.reload();
+      /* window.location.reload(); */
   };
 
   return (

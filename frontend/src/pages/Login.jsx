@@ -51,6 +51,8 @@ function Login() {
             <div>
                 <button type="submit">Login</button>
             </div>
+            <p>You don't have an account yet?</p>
+            <button onClick={()=>navigate("/signup")}>SignUp</button>
             {error && <p>{error}</p>}
         </form>
     </div>
