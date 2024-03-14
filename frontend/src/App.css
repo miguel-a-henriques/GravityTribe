@@ -37,9 +37,11 @@ White - #ffffff
   background-color: #28363d;
 }
 .navbar img {
-  height: 80px;
-  margin: 0px 70px;
-  border: 2px solid black;
+  margin: 0px 80px;
+}
+.logo{
+  width: 100px;
+  height: 30px;
 }
 
 #map {

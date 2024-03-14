@@ -91,15 +91,15 @@ function Navbar() {
   return (
     <div className="navbar">
       <a onClick={() => navigate("")}>
-        <img src={logo}/* "https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" */ />
+        <img src={logo}/* "https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" */ className="logo" />
       </a>
 
       {isLoggedIn ? (
   <div className="dropdown dropdown-bottom">
     <div>
-      <div className="relative ">
+      <div className="relative">
         <div tabIndex={0} role="button" className="m-1">
-          <img src={ourUser.photo} alt="Profile" style={{ borderRadius: "50%", width: "80px", height: "80px" }} onClick={handleOpen}/>
+          <img src={ourUser.photo} alt="Profile" style={{ borderRadius: "50%", width: "80px", height: "80px", border: "2px solid black" }} onClick={handleOpen}/>
         </div>
         <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" >
           <li>
