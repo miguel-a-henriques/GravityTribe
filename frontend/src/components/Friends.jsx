@@ -79,19 +79,20 @@ function Friends() {
       {isLoggedIn ? (
         filteredUsers &&
         filteredUsers.map((user, index) => (
-          <div key={index} className="global-user global-user-card h-96 carousel carousel-vertical rounded-box">
+          <div key={index} className=" global-user global-user-card">
             <Link to={`/profile/${user._id}`}>
-              <article className="global-user carousel-item">
+              <article className="global-user">
                 <img
                   src={user.photo}
                   style={{ width: "50px", height: "50px" }}
                 />
+                 <button onClick={() => navigate(`/messages/${user._id}`)}>
+              <img src={message} style={{ width: "20px", height: "20px" }}/>
+            </button>
                 <h2>{user.name}</h2>
               </article>
             </Link>
-            <button onClick={() => navigate(`/messages/${user._id}`)}>
-              <img src={message} style={{ width: "20px", height: "20px" }}/>
-            </button>
+           
           </div>
         ))
       ) : (

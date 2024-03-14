@@ -4,7 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import logo from "../images/GT_LOGO1.png"
+import logo from "../images/GT_LOGO1.png";
 
 const API_URL = "https://gravitytribe.onrender.com";
 
@@ -91,36 +91,56 @@ function Navbar() {
   return (
     <div className="navbar">
       <a onClick={() => navigate("")}>
-        <img src={logo}/* "https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" */ className="logo" />
+        <img
+          src={logo}
+          /* "https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" */ className="logo"
+        />
       </a>
 
       {isLoggedIn ? (
-  <div className="dropdown dropdown-bottom">
-    <div>
-      <div className="relative">
-        <div tabIndex={0} role="button">
-          <img src={ourUser.photo} alt="Profile" style={{ borderRadius: "50%", width: "80px", height: "80px", border: "2px solid black" }} onClick={handleOpen}/>
+        <div className="dropdown dropdown-bottom">
+          <div>
+            <div className="relative">
+              <div tabIndex={0} role="button">
+                <img
+                  src={ourUser.photo}
+                  alt="Profile"
+                  style={{
+                    borderRadius: "50%",
+                    width: "80px",
+                    height: "80px" /* , border: "2px solid black" */,
+                  }}
+                  onClick={handleOpen}
+                />
+              </div>
+              <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+                <li>
+                  <button className={"text-white"} onClick={handleLogOut} style={{color: "white"}}>
+                    Logout
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={"text-white"}
+                    onClick={() => {
+                      navigate(`/userprofile/`);
+                    }}
+                    style={{ color: "white" }}
+                  >
+                    My Profile
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" >
-          <li>
-            <button className={"text-white"} onClick={handleLogOut}>Logout</button>
-          </li>
-          <li>
-            <button
-            className={"text-white"}
-              onClick={() => {
-                navigate(`/userprofile/`);
-              }}
-            >
-              My Profile
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-) : (
-        <button className="btn-following-allposts" onClick={() => navigate("/login")}>Login</button>
+      ) : (
+        <button
+          className="btn-following-allposts"
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </button>
       )}
     </div>
   );
