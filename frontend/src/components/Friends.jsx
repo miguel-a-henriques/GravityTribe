@@ -61,7 +61,7 @@ function Friends() {
   return (
     <div className="friends-bar">
       <div className="search">
-    <input type="text" class="search__input" placeholder="Search for users..." value={searchQuery} onChange={handleSearch}/>
+    <input type="text" className="search__input" placeholder="Search for users..." value={searchQuery} onChange={handleSearch}/>
     <button className="search__button">
         <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
             <g>

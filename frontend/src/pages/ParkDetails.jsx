@@ -91,7 +91,7 @@ function ParkDetails() {
       <section className="park-detail">
         <h2>{park.name}</h2>
         <img src={park.photo} />
-        <div id="map"></div>
+        <div id="map" style={{zIndex: "0"}}></div>
       </section>
       {/* <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg" style={{color: "white", margin: "20px"}}>Coming Soon</button> */}
 
