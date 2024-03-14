@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
+import { Link } from "react-router-dom";
 
 const API_URL = "https://gravitytribe.onrender.com";
 
@@ -110,65 +111,122 @@ function Posts() {
     setShowFollowPosts(!showFollowPosts);
   };
 
+  const sortedPosts = allPosts.sort(
+    (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+  );
+
   return (
     <div className="page">
       {isLoggedIn ? (
         <div>
-          <form onSubmit={handlePost}>
-            <label>Add Post</label>
-            <input
-              className="post"
-              type="text"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-            />
-            <div>
-              <label>Photo</label>
-              <input type="file" onChange={handleChange} />
-              <img src={image} style={{ width: "100px", height: "100px" }} />
-            </div>
-            <button type="submit">Post</button>
-          </form>
-          <article>
-            <button onClick={toggleFollowPosts}>
-              {showFollowPosts ? "All Posts" : "Following"}
+          <section
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginBottom: "20px",
+            }}
+          >
+            <h1>See what's new ...</h1>
+            <button
+              className="btn-following-allposts"
+              onClick={toggleFollowPosts}
+            >
+              {showFollowPosts ? "Following" : "All Posts"}
             </button>
+          </section>
+          <section className="post-add">
+            <details className="dropdown">
+              <summary
+                className="m-1 btn"
+                style={{ color: "white", backgroundColor: "#3f5e60" }}
+              >
+                Add Post
+              </summary>
+
+              <form
+                onSubmit={handlePost}
+                className="post-add p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+              >
+                <input
+                  className="input input-bordered w-full max-w-xs"
+                  type="text"
+                  style={{ color: "white" }}
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                />
+                <input
+                  type="file"
+                  className="file-input file-input-bordered w-full max-w-xs"
+                  onChange={handleChange}
+                />
+                {/* <img src={image} style={{ width: "100px", height: "100px" }} /> */}
+                <button
+                  className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+                  type="submit"
+                >
+                  Post
+                </button>
+              </form>
+            </details>
+          </section>
+
+          <article>
             {showFollowPosts && followPosts
               ? followPosts.map((post) => (
-                  <div key={post._id}>
+                  <div key={post._id} className="post">
                     <article>
-                      <img src={post.image} alt="" />
-                      <p>{post.text}</p>
-                      <img
-                        src={post.userPhoto}
-                        style={{ height: "20px", width: "20px" }}
-                      ></img>
-                      <p>{post.username}</p>
+                      <div className="post-header">
+                        <Link to={`/profile/${post.userId}`}>
+                          <img
+                            src={post.userPhoto}
+                            style={{ height: "50px", width: "50px" }}
+                          ></img>
+                        </Link>
+                        <Link to={`/profi/${post.userId}`}>
+                          <p style={{ color: "black" }}>{post.username}</p>
+                        </Link>
+                      </div>
+                      <img src={post.image} className="post-img" />
+                      <p className="post-text">{post.text}</p>
                     </article>
                     {post.userId === ourUser._id && (
                       <section>
-                        <button onClick={() => handleDelete(post)}>
-                          Delete Post
+                        <button className="delete-button" onClick={() => handleDelete(post)}>
+                        <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                          </svg>
                         </button>
                       </section>
                     )}
                   </div>
                 ))
               : allPosts.map((post) => (
-                  <div key={post._id}>
+                  <div key={post._id} className="post">
                     <article>
-                      <img src={post.image} alt="" />
-                      <p>{post.text}</p>
-                      <img
-                        src={post.userPhoto}
-                        style={{ height: "20px", width: "20px" }}
-                      ></img>
-                      <p>{post.username}</p>
+                      <div className="post-header">
+                        <Link to={`/profile/${post.userId}`}>
+                          <img
+                            src={post.userPhoto}
+                            style={{ height: "50px", width: "50px" }}
+                          ></img>
+                        </Link>
+                        <Link to={`/profile/${post.userId}`}>
+                          <p style={{ color: "black" }}>{post.username}</p>
+                        </Link>
+                      </div>
+                      <img src={post.image} className="post-img" />
+                      <p className="post-text">{post.text}</p>
                     </article>
                     {post.userId === ourUser._id && (
-                      <section>
-                        <button onClick={() => handleDelete(post)}>
-                          Delete Post
+                      <section className="del-btn">
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDelete(post)}
+                        >
+                          <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                            <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+                          </svg>
                         </button>
                       </section>
                     )}

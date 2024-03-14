@@ -3,7 +3,7 @@ import { AuthContext } from "../context/auth.context";
 const API_URL = "https://gravitytribe.onrender.com";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-//import search from "../images/search.png"
+import message from "../images/message.png"
 
 function Friends() {
   const [users, setUsers] = useState([]);
@@ -60,22 +60,16 @@ function Friends() {
 
   return (
     <div className="friends-bar">
-      <label className="input input-bordered flex items-center gap-2">
-        <input type="text" className="grow" placeholder="Search for users..." value={searchQuery}
-        onChange={handleSearch}/>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 50 50"
-          fill="currentColor"
-          className="w-4 h-4 opacity-70"
-        >
-          <path
-            fillRule="evenodd"
-            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-            clipRule="evenodd"
-          />
+      <div className="search">
+    <input type="text" class="search__input" placeholder="Search for users..." value={searchQuery} onChange={handleSearch}/>
+    <button className="search__button">
+        <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
+            <g>
+                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+            </g>
         </svg>
-      </label>
+    </button>
+</div>  
 {/*       <input
         type="text"
         placeholder="Search for users..."
@@ -85,9 +79,9 @@ function Friends() {
       {isLoggedIn ? (
         filteredUsers &&
         filteredUsers.map((user, index) => (
-          <div key={index}>
+          <div key={index} className="global-user global-user-card h-96 carousel carousel-vertical rounded-box">
             <Link to={`/profile/${user._id}`}>
-              <article className="friend-card">
+              <article className="global-user carousel-item">
                 <img
                   src={user.photo}
                   style={{ width: "50px", height: "50px" }}
@@ -96,7 +90,7 @@ function Friends() {
               </article>
             </Link>
             <button onClick={() => navigate(`/messages/${user._id}`)}>
-              Message
+              <img src={message} style={{ width: "20px", height: "20px" }}/>
             </button>
           </div>
         ))

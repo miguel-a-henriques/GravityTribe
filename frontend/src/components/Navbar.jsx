@@ -98,7 +98,7 @@ function Navbar() {
   <div className="dropdown dropdown-bottom">
     <div>
       <div className="relative">
-        <div tabIndex={0} role="button" className="m-1">
+        <div tabIndex={0} role="button">
           <img src={ourUser.photo} alt="Profile" style={{ borderRadius: "50%", width: "80px", height: "80px", border: "2px solid black" }} onClick={handleOpen}/>
         </div>
         <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" >

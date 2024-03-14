@@ -13,12 +13,20 @@ White - #ffffff
 
 /* Working from here downwards ----------------------------------------------------- */
 
+#root{
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif
+}
+
 .page {
   display: flex;
   flex-direction: column;
-  margin-top: 130px;
+  margin-top: 70px;
+  /* margin-left: 15%; */
   align-items: center;
   background-color: #ffffff;
+  min-height: 100vh;
+  height: 100%;
+
 }
 
 /* Navbar component */
@@ -35,13 +43,16 @@ White - #ffffff
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid #28363d;
   background-color: #28363d;
+  z-index: 1000;
 }
 .navbar img {
   margin: 0px 80px;
+  cursor: pointer;
 }
 .logo{
   width: 100px;
   height: 30px;
+  cursor: pointer;
 }
 
 #map {
@@ -49,20 +60,76 @@ White - #ffffff
   width: 400px;
 }
 
+/********************************************/
+
 /* Friends component */
 
 .friends-bar {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 20vw;
   height: 100vh;
-  top: 101px;
+  top: 100px;
   position: fixed;
   right: 0;
   background-color: #3f5e60;
 }
 
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 70px;
+}
 
+.search__input {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: #f4f2f2;
+  border: none;
+  color: #646464;
+  padding: 0.7rem 1rem;
+  border-radius: 30px;
+  width: 12em;
+  transition: all ease-in-out .5s;
+  margin-right: -2rem;
+}
+
+.search__input:hover, .search__input:focus {
+  box-shadow: 0 0 1em #00000013;
+}
+
+.search__input:focus {
+  outline: none;
+  background-color: #f0eeee;
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 100;
+  color: black;
+}
+
+.search__input:focus + .search__button {
+  background-color: #f0eeee;
+}
+
+.search__button {
+  border: none;
+  background-color: #f4f2f2;
+  margin-top: .1em;
+}
+
+.search__button:hover {
+  cursor: pointer;
+}
+
+.search__icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: #b4b4b4;
+}
 
 /* User profile */
 
@@ -82,6 +149,7 @@ White - #ffffff
 .user-card-info {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 .user-card-info h1 {
   margin-bottom: 10px;
@@ -110,6 +178,22 @@ White - #ffffff
 .follow-button{
   width: 100px;
   font-weight: bold;
+}
+.global-user{
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  color: black;
+  font-weight: bold;
+}
+.global-user-card{
+  width: 15vw;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-top: 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
 }
 
 /* Buttons for the navigation */
@@ -145,3 +229,221 @@ background-color: #3f5e60;
   width: 100px;
   height: 100px;
 }
+
+/* -----------------------  POSTS --------------------------------*/
+
+.post{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.post-text{
+  margin-top: 10px;
+  padding: 5px;
+  max-width: 700px;
+  height: auto;
+}
+.post-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+.post-header img{
+  border: 2px solid black;
+}
+.post-img{
+  width: 700px;
+  height: auto;
+}
+.post-add{
+  display: flex;
+  justify-content: center;
+}
+
+.del-btn{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(20, 20, 20);
+  border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
+  margin: 15px;
+}
+
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.delete-button:hover {
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
+}
+
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
+
+.delete-button::before {
+  display: none;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.delete-button:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
+}
+
+.btn-following-allposts {
+  position: relative;
+  font-size: 17px;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1em 2.5em;
+  display: inline-block;
+  border-radius: 6em;
+  transition: all .2s;
+  border: none;
+  font-family: inherit;
+  font-weight: 500;
+  color: white;
+  background-color: #3f5e60;
+ }
+ 
+ .btn-following-allposts:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .btn-following-allposts:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .btn-following-allposts::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all .4s;
+ }
+ 
+ .btn-following-allposts::after {
+  background-color: #3f5e60;
+ }
+ 
+ .btn-following-allposts:hover::after {
+  transform: scaleX(1.4) scaleY(1.6);
+  opacity: 0;
+ }
+
+
+ /* ----------------------- PARK -----------------------------------*/
+
+ .parks-page{
+  padding-top: 130px;
+ }
+ .park-card{
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: 30px;
+  color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+ }
+ .park-card img{
+  width: 700px;
+  height: auto;
+ }
+
+
+ /************** PARK DETAILS *******************/
+
+ .park-detail{
+  border: 1px solid black;
+  padding: 10px;
+  gap: 20px;
+ }
+
+ .park-reviews-all{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 600px;
+ }
+
+ .park-reviews{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 500px;
+  gap: 10px;
+  padding: 10px;
+ }
+
+ .park-reviews img {
+  height: 50px;
+  width: auto;
+ }
+ .park-review-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+ }

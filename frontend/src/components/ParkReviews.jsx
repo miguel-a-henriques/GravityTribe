@@ -58,14 +58,15 @@ function ParkReviews(props) {
     <div>
       {isLoggedIn ? (
         <form onSubmit={handleSubmit}>
-          <label>Add Review</label>
           <input
-            className="review"
+            className="input input-bordered w-full max-w-xs"
             type="text"
+            placeholder="Add Review"
+            style={{ color: "white" }}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <button type="submit">Push your review</button>
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg" style={{color:"white", margin: "15px"}} type="submit">Push your review</button>
         </form>
       ) : (
         <div />

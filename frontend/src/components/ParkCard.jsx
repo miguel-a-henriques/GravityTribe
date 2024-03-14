@@ -4,9 +4,9 @@ function ParkCard(props) {
 
   return (
     <Link to={`/parkdetails/${id}`}>
-      <section>
-        <img src={entry.photo} />
+      <section className="park-card">
         <h4>{entry.name}</h4>
+        <img src={entry.photo} />
       </section>
     </Link>
   );
