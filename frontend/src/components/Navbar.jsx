@@ -4,6 +4,7 @@ import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import logo from "../images/GT_LOGO1.png"
 
 const API_URL = "https://gravitytribe.onrender.com";
 
@@ -90,22 +91,23 @@ function Navbar() {
   return (
     <div className="navbar">
       <a onClick={() => navigate("")}>
-        <img src="https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" />
+        <img src={logo}/* "https://res.cloudinary.com/dcwbdnzjt/image/upload/v1710325473/devHub/tnwfxme4wqiu6w6kxre4.png" */ />
       </a>
 
       {isLoggedIn ? (
-  <div className="dropdown dropdown-end">
+  <div className="dropdown dropdown-bottom">
     <div>
       <div className="relative ">
         <div tabIndex={0} role="button" className="m-1">
           <img src={ourUser.photo} alt="Profile" style={{ borderRadius: "50%", width: "80px", height: "80px" }} onClick={handleOpen}/>
         </div>
-        <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 absolute top-full left-0 mt-1" >
+        <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52" >
           <li>
-            <button onClick={handleLogOut}>Logout</button>
+            <button className={"text-white"} onClick={handleLogOut}>Logout</button>
           </li>
           <li>
             <button
+            className={"text-white"}
               onClick={() => {
                 navigate(`/userprofile/`);
               }}
