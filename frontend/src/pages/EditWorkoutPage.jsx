@@ -104,8 +104,9 @@ function EditWorkoutPage() {
                 type="text"
                 name="name"
                 value={name}
+                className="input input-bordered w-full max-w-xs"
                 onChange={(e) => setName(e.target.value)}
-                style={{color: "white", padding: "5px",  marginLeft: "5px"}}
+                style={{color: "#3f5e60", padding: "5px",  marginLeft: "5px"}}
               />
             </div>
 
@@ -115,8 +116,9 @@ function EditWorkoutPage() {
                 id="workout-type"
                 name="workout-type"
                 defaultValue={workoutType}
+                className="input input-bordered w-full max-w-xs"
                 onChange={(e) => setWorkoutType(e.target.value)}
-                style={{ color: "white", padding: "5px", marginLeft: "5px" }}
+                style={{ color: "#3f5e60", marginLeft: "5px" }}
               >
                 <option value="null">-</option>
                 <option value="push">Push</option>
@@ -132,8 +134,9 @@ function EditWorkoutPage() {
                 id="experience-level"
                 name="experience-level"
                 defaultValue={expLevel}
+                className="input input-bordered w-full max-w-xs"
                 onChange={(e) => setExpLevel(e.target.value)}
-                style={{ color: "white", padding: "5px", marginLeft: "5px" }}
+                style={{ color: "#3f5e60", marginLeft: "5px" }}
               >
                 <option value="null">-</option>
                 <option value="beginner">Beginner</option>
@@ -149,8 +152,9 @@ function EditWorkoutPage() {
                 id="number"
                 name="number"
                 defaultValue={exNumber}
+                className="input input-bordered w-full max-w-xs"
                 onChange={handleExNumberChange}
-                style={{ color: "white", padding: "5px", marginLeft: "5px" }}
+                style={{ color: "#3f5e60", marginLeft: "5px" }}
               >
                 <option value="null">-</option>
                 <option value="3">3</option>
@@ -171,10 +175,10 @@ function EditWorkoutPage() {
                   <input
                     type="text"
                     value={exercise.description}
+                    className="input input-bordered w-full max-w-xs"
                     onChange={(e) => handleExNumChange(e, index)}
                     style={{
-                      color: "white",
-                      padding: "5px",
+                      color: "#3f5e60",
                       marginLeft: "5px",
                     }}
                   />
@@ -182,10 +186,10 @@ function EditWorkoutPage() {
                   <select
                     id="sets"
                     name="sets"
+                    className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setSets(e.target.value)}
                     style={{
-                      color: "white",
-                      padding: "5px",
+                      color: "#3f5e60",
                       marginLeft: "5px",
                     }}
                   >
@@ -199,10 +203,10 @@ function EditWorkoutPage() {
                   <select
                     id="reps"
                     name="reps"
+                    className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setRepetitions(e.target.value)}
                     style={{
-                      color: "white",
-                      padding: "5px",
+                      color: "#3f5e60",
                       marginLeft: "5px",
                     }}
                   >
@@ -217,10 +221,10 @@ function EditWorkoutPage() {
                   <select
                     name="type"
                     id="typeRep"
+                    className="input input-bordered w-full max-w-xs"
                     onChange={(e) => setType(e.target.value)}
                     style={{
-                      color: "white",
-                      padding: "5px",
+                      color: "#3f5e60",
                       marginLeft: "5px",
                     }}
                   >

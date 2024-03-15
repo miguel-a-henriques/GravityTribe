@@ -64,6 +64,10 @@ function Profile() {
     (workout) => workout.createdBy === thisUser._id
   );
 
+  const userPosts = allPosts.filter(
+    (post) => post.userId === thisUser._id
+  )
+
   const handleFollowUser = async () => {
     try {
       const response = await axios.get(`${API_URL}/api/user/${user._id}`);
@@ -201,9 +205,9 @@ function Profile() {
         {isLoggedIn &&
         thisUser &&
         thisUser._id &&
-        allPosts &&
-        allPosts.some((post) => post.userId === thisUser._id)
-          ? allPosts.map((post, index) => {
+        userPosts &&
+        userPosts.some((post) => post.userId === thisUser._id)
+          ? userPosts.map((post, index) => {
               return (
                 <article key={index} className="post">
                   {post.userId === thisUser._id ? (
@@ -223,7 +227,7 @@ function Profile() {
                       <p className="post-text">{post.text}</p>
                     </article>
                   ) : (
-                    ""
+                    null
                   )}
                 </article>
               );

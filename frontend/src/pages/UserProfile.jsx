@@ -48,6 +48,10 @@ function UserProfile() {
       );
   }, []);
 
+  const userPosts = allPosts.filter(
+    (post) => post.userId === ourUser._id
+  )
+
   function handleDelete(post) {
     axios
       .delete(`${API_URL}/api/posts/${post._id}`)
@@ -110,8 +114,8 @@ function UserProfile() {
             allPosts &&
             ourUser &&
             ourUser._id &&
-            allPosts.some((post) => post.userId === ourUser._id)
-              ? allPosts.map((post, index) => {
+            userPosts.some((post) => post.userId === ourUser._id)
+              ? userPosts.map((post, index) => {
                   return (
                     <section key={index} className="post">
                       {post.userId === ourUser._id ? (

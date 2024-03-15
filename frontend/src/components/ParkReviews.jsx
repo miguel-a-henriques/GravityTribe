@@ -62,11 +62,17 @@ function ParkReviews(props) {
             className="input input-bordered w-full max-w-xs"
             type="text"
             placeholder="Add Review"
-            style={{ color: "white" }}
+            style={{ color: "#3f5e60" }}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg" style={{color:"white", margin: "15px"}} type="submit">Push your review</button>
+          <button                 className="btn-following-allposts"
+                style={{
+                  color: "white",
+                  backgroundColor: "#28363d",
+                  marginTop: "40px",
+                  marginLeft:"20px"
+                }} type="submit">Push your review</button>
         </form>
       ) : (
         <div />

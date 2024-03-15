@@ -151,7 +151,7 @@ function Posts() {
                 <input
                   className="input input-bordered w-full max-w-xs"
                   type="text"
-                  style={{ color: "white" }}
+                  style={{ color: "#3f5e60" }}
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                 />

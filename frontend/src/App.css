@@ -139,9 +139,10 @@ White - #ffffff
   display: flex;
   align-items: space-between;
   gap: 40px;
-  border: 1px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 15px 45px;
   margin-top: 70px;
+  border-radius: 10px;
 }
 .user-profile-img {
   width: 200px;
@@ -217,7 +218,7 @@ background-color: #3f5e60;
 .button-left{
   background-color: white;
   /* border: 2px solid #28363d; */
-  border-radius: 5px;
+  border-radius: 15px;
   color: black;
   display: flex;
   flex-direction: column;

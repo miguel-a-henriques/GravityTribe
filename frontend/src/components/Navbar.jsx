@@ -115,7 +115,7 @@ function Navbar() {
               </div>
               <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
-                  <button className={"text-white"} onClick={handleLogOut} style={{color: "white"}}>
+                  <button className={"text-white"} onClick={handleLogOut} style={{color: "#3f5e60"}}>
                     Logout
                   </button>
                 </li>
@@ -125,7 +125,7 @@ function Navbar() {
                     onClick={() => {
                       navigate(`/userprofile/`);
                     }}
-                    style={{ color: "white" }}
+                    style={{ color: "#3f5e60" }}
                   >
                     My Profile
                   </button>

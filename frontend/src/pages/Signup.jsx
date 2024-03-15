@@ -142,8 +142,9 @@ function Signup() {
           <select
             id="experience-level"
             name="experience-level"
+            className="input input-bordered w-full max-w-xs"
             onChange={(e) => setExpLevel(e.target.value)}
-            style={{color: "white", borderRadius: "2px", padding: "5px"}}
+            style={{color: "#3f5e60"}}
           >
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
@@ -156,8 +157,9 @@ function Signup() {
           <select
             id="user-type"
             name="user-type"
+            className="input input-bordered w-full max-w-xs"
             onChange={(e) => setType(e.target.value)}
-            style={{color: "white", borderRadius: "2px", padding: "5px"}}
+            style={{color: "#3f5e60"}}
           >
             <option value="athlete">Athlete</option>
             <option value="organization">Organization</option>
