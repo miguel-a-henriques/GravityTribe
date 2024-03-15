@@ -71,7 +71,7 @@ function MessagesPage () {
 
     return (
         <div className="page">
-            <section className="" style={{marginTop:100}}>
+            <section className="" style={{margin:100}}>
                 {isLoggedIn && ourUser && thisUser && allMessages ? (
                     allMessages.map((message) => {
                         const isSentByUser = message.sentFrom.idFrom === ourUser._id;
@@ -86,7 +86,7 @@ function MessagesPage () {
                     })
                 ) : ("You haven't talked with this person yet")}
             </section>
-            <section >
+            <section style={{position: "fixed", bottom:"0"}}>
                 <form type="submit" className="message-form">
                     <textarea className="textarea textarea-bordered" value={text} name="message" placeholder="Write your message" style={{margin: 5}} onChange={(e) => setText(e.target.value)}></textarea>
                     <button className="btn-send-message" onClick={sendMessage}>Send</button>
