@@ -13,6 +13,7 @@ function UserProfile() {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [ourUser, setOurUser] = useState({});
   const [allPosts, setAllPosts] = useState();
+  const [userPosts, setUserPosts] = useState();
 
   const [allWorkouts, setAllWorkouts] = useState();
   const navigate = useNavigate()
@@ -43,14 +44,14 @@ function UserProfile() {
     axios
       .get(`${API_URL}/api/posts`)
       .then((response) => setAllPosts(response.data))
+      .then(()=> setUserPosts(allPosts.filter(
+        (post) => post.userId === ourUser._id
+      )))
       .catch((error) =>
         console.log(error.response ? error.response.data : error)
       );
   }, []);
 
-  const userPosts = allPosts.filter(
-    (post) => post.userId === ourUser._id
-  )
 
   function handleDelete(post) {
     axios
@@ -111,7 +112,7 @@ function UserProfile() {
           <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
             <h1>Posts</h1>
             {isLoggedIn &&
-            allPosts &&
+            userPosts &&
             ourUser &&
             ourUser._id &&
             userPosts.some((post) => post.userId === ourUser._id)

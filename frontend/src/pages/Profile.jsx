@@ -15,6 +15,7 @@ function Profile() {
   const [ourUser, setOurUser] = useState();
   const [allPosts, setAllPosts] = useState();
   const navigate = useNavigate()
+  const [userPosts, setUserPosts] = useState();
 
   useEffect(() => {
     axios
@@ -55,6 +56,9 @@ function Profile() {
     axios
       .get(`${API_URL}/api/posts`)
       .then((response) => setAllPosts(response.data))
+      .then(() => setUserPosts(allPosts.filter(
+        (post) => post.userId === thisUser._id
+      )))
       .catch((error) =>
         console.log(error.response ? error.response.data : error)
       );
@@ -64,9 +68,6 @@ function Profile() {
     (workout) => workout.createdBy === thisUser._id
   );
 
-  const userPosts = allPosts.filter(
-    (post) => post.userId === thisUser._id
-  )
 
   const handleFollowUser = async () => {
     try {
