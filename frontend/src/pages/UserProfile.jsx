@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 import editImage from "../images/edit.png";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "https://gravitytribe.onrender.com";
 
@@ -14,6 +15,7 @@ function UserProfile() {
   const [allPosts, setAllPosts] = useState();
 
   const [allWorkouts, setAllWorkouts] = useState();
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -152,16 +154,36 @@ function UserProfile() {
           </section>
           <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
             <h1>Workouts</h1>
-            <article>
-              <h3>Created Workouts</h3>
+            <article style={{display:"flex", flexDirection:"column", justifyContent: "center", alignItems:"center"}}>
+              <h3>- Created Workouts - </h3>
+              <article style={{/* display: "flex", */ flexDirection:"column", paddingTop: "10px", paddingBottom: "50px"}}>
               {isLoggedIn && allWorkouts && ourUser ? (
                 allWorkouts.map((workout, index) => {
                   return (
-                    <article key={index}>
+                    <article key={index} style={{margin: "35px"}}>
                       {workout.createdBy === ourUser._id ? (
-                        <Link to={`/workouts/${workout._id}`}>
-                          <h2>{workout.name}</h2>
-                        </Link>
+                        <div>
+                        <div class="card">
+                          <div class="card-details">
+                          <h2 class="text-title">
+                            {workout && workout.name
+                              ? workout.name.charAt(0).toUpperCase() + workout.name.slice(1)
+                              : ""}
+                          </h2>
+                          <h2 class="text-body">Type: {workout && workout.workoutType
+                              ? workout.workoutType.charAt(0).toUpperCase() +
+                                workout.workoutType.slice(1)
+                              : ""}
+                          </h2>
+                          <h3 class="text-body">Difficulty: {workout && workout.expLevel
+                              ? workout.expLevel.charAt(0).toUpperCase() +
+                                workout.expLevel.slice(1)
+                              : ""}
+                          </h3>
+                          </div>
+                          <button onClick={()=>navigate(`/workouts/${workout._id}`)} class="card-button">More...</button>
+                        </div>
+                      </div>
                       ) : (
                         ""
                       )}
@@ -176,36 +198,49 @@ function UserProfile() {
                   </Link>
                 </article>
               )}
+              </article>
             </article>
             <article>
-              <h3>Cloned Workouts</h3>
+            <article style={{display:"flex", flexDirection:"column", justifyContent: "center", alignItems:"center"}}>
+              <h3>- Cloned Workouts -</h3>
+              <article style={{/* display: "flex", */ flexDirection:"column", paddingTop: "10px", paddingBottom: "50px"}}>
               {isLoggedIn &&
               ourUser &&
               ourUser.workouts &&
               ourUser.workouts.length > 0 ? (
                 ourUser.workouts.map((workout, index) => {
                   return (
-                    <article key={index}>
-                      <h2>{workout.name}</h2>
-                      <h3>{workout.workoutType}</h3>
-                      <p>{workout.expLevel}</p>
-                      {workout.exercises.map((exercise, index) => {
-                        return (
-                          <article key={index}>
-                            <h3>{exercise.description}</h3>
-                            <p>
-                              Do {exercise.sets} sets of {exercise.repetitions}{" "}
-                              {exercise.type}.
-                            </p>
-                          </article>
-                        );
-                      })}
-                    </article>
+                    <article key={index} style={{margin: "35px"}}>
+                    <div>
+                        <div class="card">
+                          <div class="card-details">
+                          <h2 class="text-title">
+                            {workout && workout.name
+                              ? workout.name.charAt(0).toUpperCase() + workout.name.slice(1)
+                              : ""}
+                          </h2>
+                          <h2 class="text-body">Type: {workout && workout.workoutType
+                              ? workout.workoutType.charAt(0).toUpperCase() +
+                                workout.workoutType.slice(1)
+                              : ""}
+                          </h2>
+                          <h3 class="text-body">Difficulty: {workout && workout.expLevel
+                              ? workout.expLevel.charAt(0).toUpperCase() +
+                                workout.expLevel.slice(1)
+                              : ""}
+                          </h3>
+                          </div>
+                          <button onClick={()=>navigate(`/workouts/${workout.workoutId}`)} class="card-button">More...</button>
+                        </div>
+                      </div>
+                      </article>
                   );
                 })
               ) : (
                 <h2>No cloned workouts available</h2>
               )}
+              </article>
+            </article>
             </article>
           </section>
         </div>

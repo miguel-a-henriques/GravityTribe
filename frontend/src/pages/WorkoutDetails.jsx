@@ -62,7 +62,7 @@ function WorkoutDetails() {
         expLevel: workout.expLevel,
         workoutType: workout.workoutType,
         createdBy: ourUser._id,
-        workoutId: Math.random().toString(36).substr(2, 9),
+        workoutId: workout._id,
       };
 
       const updatedUser = {
@@ -78,36 +78,39 @@ function WorkoutDetails() {
 
   return (
     <div className="page">
-      <section>
-        <img></img>
+      <section style={{marginTop: "70px", display:"flex", flexDirection:"column", alignItems:"start", gap:"10px"}}>
         <h1>{workout.name}</h1>
-        <h2>{workout.workoutType}</h2>
-        <h3>{workout.expLevel}</h3>
+        <br />
+        <h2><b>Type:</b> {workout.workoutType}</h2>
+        <h3><b>Difficulty:</b> {workout.expLevel}</h3>
+        <p style={{color:"black"}}>____________________________________</p>
         {workout &&
           workout.exercises.map((single) => {
             return (
               <article key={single.description}>
-                <h3>{single.description}</h3>
-                <p>
-                  Do {single.sets} sets of {single.repetitions} {single.type}.
+                <h3><b>{single.description}</b></h3>
+                <p>   - Do {single.sets} sets of {single.repetitions} {single.type}.
                 </p>
               </article>
             );
           })}
+          <p style={{color:"black"}}>____________________________________</p>
       </section>
-      <button onClick={handleCloneWorkout}>Clone Workout</button>
+      <section style={{marginBottom:"30px", display:"flex", flexDirection:"column", alignItems:"center"}}>
+      <button onClick={handleCloneWorkout} className="btn-following-allposts"style={{color: "white", backgroundColor: "#28363d", marginTop:"40px"}}>Clone Workout</button>
       {workout.createdBy === ourUser._id && (
-        <div>
+        <div style={{marginBottom:"30px", display:"flex", flexDirection:"column", alignItems:"center"}}>
           <section>
             <Link to={`/editworkout/${id}`}>
-              <button>Edit this Workout</button>
+              <button className="btn-following-allposts"style={{color: "white", backgroundColor: "#28363d", marginTop:"40px"}}>Edit this Workout</button>
             </Link>
           </section>
           <section>
-            <button onClick={handleDelete}>Delete Workout</button>
+            <button className="btn-following-allposts"style={{color: "white", backgroundColor: "#28363d", marginTop:"40px"}} onClick={handleDelete}>Delete Workout</button>
           </section>
         </div>
       )}
+      </section>
     </div>
   );
 }

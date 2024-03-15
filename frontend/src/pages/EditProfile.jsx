@@ -69,26 +69,32 @@ function EditProfile() {
   return (
     <div className="page">
       {isLoggedIn && ourUser ? (
-        <div>
-          <h1>Edit My Profile</h1>
+        <div style={{marginTop: "50px",marginBottom:"40px", display: "flex", alignItems:"center", flexDirection: "column"}}>
+          <h1 style={{marginLeft: "100px"}}>Edit My Profile</h1>
           <form onSubmit={handleSignUpSubmit}>
-            <div>
-              <label>Username:</label>
+            <div style={{paddingTop: "50px", paddingBottom:"50px"}}>
+            
+              <label style={{fontSize: "1.5em"}}>Username: </label>
               <input
                 type="text"
                 name="username"
+                className="input input-bordered w-full max-w-xs"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
-            <div>
-              <label>Photo</label>
-              <input type="file" onChange={handleChange} />
-              <img src={photo} style={{ width: "100px", height: "100px" }} />
+            <br></br>
+            <br></br>
+            <div style={{display: "flex", alignItems:"center", flexDirection: "column", gap:"10px"}}>
+              <input type="file" className="file-input w-full max-w-xs" onChange={handleChange} />
+              <img src={photo} style={{ width: "150px", height: "auto" }} />
             </div>
+            <br></br>
+            <br></br>
             <div>
-              <label htmlFor="experience-level">Experience Level</label>
+              <label htmlFor="experience-level" style={{fontSize: "1.5em"}}>Experience Level: </label>
               <select
+              className="select select-bordered w-full max-w-xs"
                 id="experience-level"
                 name="experience-level"
                 onChange={(e) => setExpLevel(e.target.value)}
@@ -99,8 +105,13 @@ function EditProfile() {
                 <option value="master">Master</option>
               </select>
             </div>
-            <div>
-              <button type="submit">Push Profile</button>
+            <div style={{marginTop: "20px", display: "flex", flexDirection:"column", alignItems:"center"}}>
+              <button className="btn-following-allposts"
+                style={{
+                  color: "white",
+                  backgroundColor: "#28363d",
+                  marginTop: "40px",
+                }} type="submit">Push Profile</button>
             </div>
             {error && <p>{error}</p>}
           </form>

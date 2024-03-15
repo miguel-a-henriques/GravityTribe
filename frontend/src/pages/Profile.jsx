@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "https://gravitytribe.onrender.com";
 
@@ -13,6 +14,7 @@ function Profile() {
   const { user, isLoggedIn } = useContext(AuthContext);
   const [ourUser, setOurUser] = useState();
   const [allPosts, setAllPosts] = useState();
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -105,30 +107,30 @@ function Profile() {
     try {
       const response = await axios.get(`${API_URL}/api/user/${user._id}`);
       const existingData = response.data;
-  
+
       const updatedUser = {
         ...existingData,
         follow: existingData.follow.filter(
           (followedUser) => followedUser._id !== thisUser._id
         ),
       };
-  
+
       await axios.put(`${API_URL}/api/user/${user._id}`, updatedUser);
       console.log("You no longer follow this user.");
-  
+
       // Update the user that was being followed (thisUser)
       const responseThisUser = await axios.get(
         `${API_URL}/api/user/${thisUser._id}`
       );
       const existingThisUserData = responseThisUser.data;
-  
+
       const updatedThisUser = {
         ...existingThisUserData,
         followedBy: existingThisUserData.followedBy.filter(
           (followerUser) => followerUser._id !== user._id
         ),
       };
-  
+
       await axios.put(`${API_URL}/api/user/${thisUser._id}`, updatedThisUser);
       console.log("You are no longer followed by this user.");
     } catch (error) {
@@ -165,7 +167,9 @@ function Profile() {
                   : ""}
               </h3>
               {isLoggedIn &&
-              thisUser && ourUser && ourUser._id &&
+              thisUser &&
+              ourUser &&
+              ourUser._id &&
               thisUser.followedBy &&
               thisUser.followedBy.some(
                 (followedUser) => followedUser._id === ourUser._id
@@ -183,7 +187,16 @@ function Profile() {
         </div>
       </section>
 
-      <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "40px",
+          marginTop: "30px",
+        }}
+      >
         <h1>Posts</h1>
         {isLoggedIn &&
         thisUser &&
@@ -195,22 +208,20 @@ function Profile() {
                 <article key={index} className="post">
                   {post.userId === thisUser._id ? (
                     <article>
-                    <div className="post-header">
-                      <Link to={`/profile/${post.userId}`}>
-                        <img
-                          src={post.userPhoto}
-                          style={{ height: "50px", width: "50px" }}
-                        ></img>
-                      </Link>
-                      <Link to={`/profi/${post.userId}`}>
-                        <p style={{ color: "black" }}>
-                          {post.username}
-                        </p>
-                      </Link>
-                    </div>
-                    <img src={post.image} className="post-img" />
-                    <p className="post-text">{post.text}</p>
-                  </article>
+                      <div className="post-header">
+                        <Link to={`/profile/${post.userId}`}>
+                          <img
+                            src={post.userPhoto}
+                            style={{ height: "50px", width: "50px" }}
+                          ></img>
+                        </Link>
+                        <Link to={`/profi/${post.userId}`}>
+                          <p style={{ color: "black" }}>{post.username}</p>
+                        </Link>
+                      </div>
+                      <img src={post.image} className="post-img" />
+                      <p className="post-text">{post.text}</p>
+                    </article>
                   ) : (
                     ""
                   )}
@@ -219,19 +230,67 @@ function Profile() {
             })
           : `${thisUser.name} hasn't posted yet.`}
       </section>
-      <section style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "40px", marginTop: "30px"}}>
-        <h1>Workouts</h1>
-        {userWorkouts.length > 0 ? (
-          userWorkouts.map((workout, index) => (
-            <article key={index}>
-              <Link to={`/workouts/${workout._id}`}>
-              <h2>{workout.name}</h2>
-              </Link>
-            </article>
-          ))
-        ) : (
-          <p>{`No workouts created by ${thisUser.name}.`}</p>
-        )}
+      <section
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "40px",
+          marginTop: "30px",
+        }}
+      >
+        <h1>Workouts from {thisUser.name}</h1>
+        <article
+          style={{
+            /* display: "flex", */ flexDirection: "column",
+            paddingTop: "10px",
+            paddingBottom: "50px",
+          }}
+        >
+          {userWorkouts.length > 0 ? (
+            userWorkouts.map((workout, index) => (
+              <article key={index} style={{ margin: "35px" }}>
+                  <div>
+                    <div class="card">
+                      <div class="card-details">
+                        <h2 class="text-title">
+                          {workout && workout.name
+                            ? workout.name.charAt(0).toUpperCase() +
+                              workout.name.slice(1)
+                            : ""}
+                        </h2>
+                        <h2 class="text-body">
+                          Type:{" "}
+                          {workout && workout.workoutType
+                            ? workout.workoutType.charAt(0).toUpperCase() +
+                              workout.workoutType.slice(1)
+                            : ""}
+                        </h2>
+                        <h3 class="text-body">
+                          Difficulty:{" "}
+                          {workout && workout.expLevel
+                            ? workout.expLevel.charAt(0).toUpperCase() +
+                              workout.expLevel.slice(1)
+                            : ""}
+                        </h3>
+                      </div>
+                      <button
+                        onClick={() => navigate(`/workouts/${workout._id}`)}
+                        class="card-button"
+                      >
+                        More...
+                      </button>
+                    </div>
+                  </div>
+                
+                
+              </article>
+            ))
+          ) : (
+            <p>{`No workouts created by ${thisUser.name}.`}</p>
+          )}
+        </article>
       </section>
     </div>
   );

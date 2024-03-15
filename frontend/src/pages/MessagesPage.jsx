@@ -71,22 +71,25 @@ function MessagesPage () {
 
     return (
         <div className="page">
-            <section className="chat-box">
+            <section className="" style={{marginTop:100}}>
                 {isLoggedIn && ourUser && thisUser && allMessages ? (
                     allMessages.map((message) => {
+                        const isSentByUser = message.sentFrom.idFrom === ourUser._id;
                         return(
                         <article key={message._id}>
+                            <div style={{padding: "10px", backgroundColor: isSentByUser ? "lightgray" : "#3f5e60", margin: 10, width: 300, borderRadius:20, color: isSentByUser ? "black" : "white"}}>
+                            <p><b>{message.sentFrom.nameFrom}</b></p>
                             <p style={{fontSize: "20px"}}>{message.text}</p>
-                            <p>{message.sentFrom.nameFrom}</p>
+                            </div>
                         </article>
                         )
                     })
                 ) : ("You haven't talked with this person yet")}
             </section>
-            <section className="message-form">
-                <form type="submit">
-                    <input type="text" value={text} name="message" placeholder="Write your message" onChange={(e) => setText(e.target.value)}></input>
-                    <button type="submit" onClick={sendMessage}>Send</button>
+            <section >
+                <form type="submit" className="message-form">
+                    <textarea className="textarea textarea-bordered" value={text} name="message" placeholder="Write your message" style={{margin: 5}} onChange={(e) => setText(e.target.value)}></textarea>
+                    <button className="btn-send-message" onClick={sendMessage}>Send</button>
                 </form>
             </section>
         </div>

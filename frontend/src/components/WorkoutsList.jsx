@@ -59,32 +59,35 @@ function WorkoutsList() {
     <div className="page">
       <section id={"skillsLevelsButtons"}>
         <section>
-          <button onClick={() => filterWorkoutsByDifficulty("beginner")}>
+          <button className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}} onClick={() => filterWorkoutsByDifficulty("beginner")}>
             Beginner
           </button>
-          <button onClick={() => filterWorkoutsByDifficulty("intermediate")}>
+          <button className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}} onClick={() => filterWorkoutsByDifficulty("intermediate")}>
             Intermediate
           </button>
-          <button onClick={() => filterWorkoutsByDifficulty("advanced")}>
+          <button className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}}onClick={() => filterWorkoutsByDifficulty("advanced")}>
             Advanced
           </button>
-          <button onClick={() => filterWorkoutsByDifficulty("master")}>
+          <button className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}}onClick={() => filterWorkoutsByDifficulty("master")}>
             Master
           </button>
-          <button onClick={() => toggleShowMyWorkouts()}>
-            Created By Me
-          </button>
-        </section>
 
+        </section>
+        <section style={{display: "flex", justifyContent: "center"}}>
         <button
           onClick={() => {
             navigate("/workouts/create");
           }}
+          className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}}
         >
           Create Your Workout
         </button>
+        <button className="btn-following-allposts" style={{color: "white", backgroundColor: "#28363d", margin:"10px"}}onClick={() => toggleShowMyWorkouts()}>
+            Created By Me
+          </button>
+        </section>
       </section>
-      <section>
+      <section style={{display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "50px", paddingTop: "50px", paddingBottom: "50px"}}>
         {displayedWorkouts &&
           displayedWorkouts.map((workout) => {
             return <WorkoutsCard workout={workout} id={workout._id} key={workout._id}/>;
