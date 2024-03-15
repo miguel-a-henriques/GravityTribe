@@ -91,10 +91,10 @@ function Profile() {
         follow: [...(existingData.follow || []), newFollow],
       };
 
-      await axios.put(`${API_URL}/api/user/${user._id}`, updatedUser, {
+      await axios.put(`${API_URL}/api/user/${user._id}`, updatedUser/* , {
         headers: {
           Authorization: `Bearer ${storedToken}`
-        }})
+        }} */)
       console.log("You now follow this user... stalker");
 
       // Update the user being followed (thisUser)
@@ -108,15 +108,15 @@ function Profile() {
     } catch (error) {
       console.error("Error while following this user", error);
     }
-    window.location.reload();
+  /*   window.location.reload(); */
   };
 
   const handleUnfollowUser = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/user/${user._id}`,{
+      const response = await axios.get(`${API_URL}/api/user/${user._id}`/* ,{
         headers: {
           Authorization: `Bearer ${storedToken}`
-        }})
+        }} */)
       const existingData = response.data;
 
       const updatedUser = {
@@ -147,7 +147,7 @@ function Profile() {
     } catch (error) {
       console.error("Error while unfollowing this user", error);
     }
-    window.location.reload();
+   /*  window.location.reload(); */
   };
 
   return (
