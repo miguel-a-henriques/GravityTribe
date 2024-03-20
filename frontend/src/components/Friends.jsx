@@ -72,12 +72,6 @@ function Friends() {
           </svg>
         </button>
       </div>
-      {/*       <input
-        type="text"
-        placeholder="Search for users..."
-        value={searchQuery}
-        onChange={handleSearch}
-      /> */}
       {isLoggedIn ? (
         filteredUsers &&
         filteredUsers.map((user, index) => (

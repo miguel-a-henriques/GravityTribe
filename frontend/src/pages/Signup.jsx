@@ -101,16 +101,6 @@ function Signup() {
           <span className="highlight-span"></span>
           <label className="lebal-email">password</label>
         </div>
-        {/* <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div> */}
-
         <div className="group">
           <input
             required="true"
@@ -123,15 +113,6 @@ function Signup() {
           <span className="highlight-span"></span>
           <label className="lebal-email">Username</label>
         </div>
-        {/*  <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div> */}
         <div>
           {/* <label>Photo</label> */}
           <input type="file" onChange={handleChange} className="file-input file-input-bordered w-full max-w-xs"/>
@@ -170,39 +151,6 @@ function Signup() {
         </div>
         {error && <p>{error}</p>}
       </form>
-
-      {/*    <form className="form" onSubmit={handleLoginSubmit}>
-        <div className="group">
-          <input
-            required="true"
-            className="main-input"
-            type="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <span className="highlight-span"></span>
-          <label className="lebal-email">Email</label>
-        </div>
-        <div className="container-1">
-          <div className="group">
-            <input
-              required="true"
-              className="main-input"
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <span className="highlight-span"></span>
-            <label className="lebal-email">password</label>
-          </div>
-        </div>
-        <button className="btn-following-allposts" type="submit" style={{color: "white", backgroundColor: "#3f5e60", marginTop:"40px"}}>
-          login
-        </button>
-        <span style={{marginTop: "30px"}}>Don't have an account yet? <Link to={"/signup"} className="swtich" style={{color: "black"}}><b>Sign Up</b></Link></span>
-      </form> */}
     </div>
   );
 }
